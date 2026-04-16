@@ -1,5 +1,4 @@
 # SafeBite
-SafeBite
 
 CURSO: Análise e Desenvolvimento de Sistemas
 
