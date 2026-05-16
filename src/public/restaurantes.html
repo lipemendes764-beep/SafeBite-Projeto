@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>SafeBite — Restaurantes</title>
+<link rel="stylesheet" href="assets/css/restaurantes.css" />
+</head>
+<body>
+<nav class="nav">
+ <div class="nav-inner">
+ <a class="brand" href="home.html">
+ <span class="brand-dot">S</span> SafeBite
+ </a>
+ <div class="nav-links">
+ <a class="nav-link" href="home.html">Início</a>
+ <a class="nav-link active" href="restaurantes.html">Restaurantes</a>
+ <a class="nav-link" href="cadastrode restarurante.html">Cadastrar</a>
+ <a class="nav-link" href="pesquisa-alimentos.html">Alimentos</a>
+ <a class="nav-link" href="cadastrocliente.html">Clientes</a>
+ <a class="nav-link" href="cadastro-prato.html">Pratos</a>
+ <a class="nav-link" href="registro-venda.html">Vendas</a>
+ <a class="nav-link" href="perfil.html">Perfil</a>
+ </div>
+ </div>
+</nav>
+<div class="wrap">
+ <div class="glow"></div>
+ <div class="eyebrow">◎ Catálogo</div>
+ <h1>Restaurantes parceiros</h1>
+ <p class="lead">Explore estabelecimentos que respeitam suas restrições
+alimentares.</p>
+ <div class="filters">
+ <div class="search">
+ <input id="q" type="search" placeholder="Buscar por nome, cozinha ou
+cidade..." />
+ </div>
+ <div class="chips" id="chips"></div>
+ </div>
+ <div class="list-head">
+ <h2 style="margin:0">Resultados</h2>
+ <span class="badge" id="count">0</span>
+ </div>
+ <div id="list" class="cards"></div>
+</div>
+<script src="assets/js/restaurantes.js"></script>
+</body>
+</html>
