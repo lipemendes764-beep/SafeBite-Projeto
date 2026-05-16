@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>SafeBite — Cadastro de Restaurantes</title>
+<link rel="stylesheet" href="assets/css/cadastroderestaurantes.css" />
+</head>
+<body>
+<nav class="nav">
+ <div class="nav-inner">
+ <a class="brand" href="home.html">
+ <span class="brand-dot">S</span> SafeBite
+ </a>
+ <div class="nav-links">
+ <a class="nav-link" href="home.html">Início</a>
+ <a class="nav-link" href="restaurantes.html">Restaurantes</a>
+ <a class="nav-link active" href="cadastrode
+restarurante.html">Cadastrar</a>
+ <a class="nav-link" href="pesquisa-alimentos.html">Alimentos</a>
+ <a class="nav-link" href="cadastrocliente.html">Clientes</a>
+ <a class="nav-link" href="cadastro-prato.html">Pratos</a>
+ <a class="nav-link" href="registro-venda.html">Vendas</a>
+ <a class="nav-link" href="perfil.html">Perfil</a>
+ </div>
+ </div>
+</nav>
+<div class="wrap">
+ <div class="glow"></div>
+ <div class="eyebrow">▣ Gestão</div>
+ <h1>Cadastro de Restaurantes</h1>
+ <p class="lead">Registre estabelecimentos parceiros da plataforma
+SafeBite.</p>
+ <div class="grid">
+ <form class="card" id="form">
+ <div class="field">
+ <label>Nome do restaurante <span class="req">*</span></label>
+ <input class="input" name="name" required />
+ </div>
+ <div class="field">
+ <label>CNPJ <span class="req">*</span></label>
+ <input class="input" name="cnpj" placeholder="00.000.000/0000-00"
+required />
+ </div>
+ <div class="field">
+ <label>Tipo de cozinha</label>
+ <input class="input" name="cuisine" placeholder="Ex: Italiana,
+Vegana..." />
+ </div>
+ <div class="field">
+ <div class="row">
+ <div><label>Cidade</label><input class="input" name="city" /></div>
+ <div><label>UF</label><input class="input" name="state"
+placeholder="SP" maxlength="2" /></div>
+ </div>
+ </div>
+ <div class="field">
+ <label>Telefone</label>
+ <input class="input" name="phone" placeholder="(11) 99999-0000" />
+ </div>
+ <fieldset>
+ <legend>Restrições atendidas</legend>
+ <div class="chips" id="chips"></div>
+ </fieldset>
+ <div id="msg"></div>
+ <button class="submit" type="submit">Cadastrar restaurante</button>
+ </form>
+ <section>
+ <div class="list-head">
+ <h2 style="margin:0">Cadastrados</h2>
+ <span class="badge" id="count">0</span>
+ </div>
+ <div id="list"></div>
+ </section>
+ </div>
+</div>
+<script src="assets/js/cadastrorestaurantes.js"></script>
+</body>
+</html>
