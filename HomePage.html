@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>SafeBite — Coma com segurança</title>
+<link rel="stylesheet" href="../css/home.css">
+</head>
+<body>
+<!-- Navbar -->
+<nav class="nav">
+ <div class="nav-inner">
+ <a class="brand" href="HomePage.html">
+ <span class="brand-dot">S</span><span>SafeBite</span>
+ </a>
+ <div class="nav-links">
+ <a class="nav-link active" href="HomePage.html">Início</a>
+ <a class="nav-link" href="restaurantes.html">Restaurantes</a>
+ <a class="nav-link" href="cadastro-de-restaurante.html">Cadastrar</a>
+ <a class="nav-link" href="pesquisa-alimentos.html">Alimentos</a>
+ <a class="nav-link" href="pagamento.html">Pagamento</a>
+ <a class="nav-link" href="cadastrocliente.html">Clientes</a>
+ <a class="nav-link" href="cadastro-prato.html">Pratos</a>
+ <a class="nav-link" href="registro-venda.html">Vendas</a>
+ <a class="nav-link" href="perfil.html">Perfil</a>
+ </div>
+ </div>
+</nav>
+<!-- Hero -->
+<header class="hero">
+ <div class="glow"></div>
+ <div class="hero-inner">
+ <span class="eyebrow">◎ Coma com segurança</span>
+ <h1 id="hero-title"></h1>
+ <p class="lead" id="hero-lead"></p>
+ <div class="cta-row">
+ <a class="btn primary" href="pesquisa-alimentos.html">Explorar
+cardápio</a>
+ <a class="btn ghost" href="restaurantes.html">Ver restaurantes</a>
+ </div>
+ <div class="stats" id="stats"></div>
+ </div>
+</header>
+<!-- Categorias -->
+<section class="section">
+ <div class="section-head">
+ <div>
+ <h2>Filtre por restrição</h2>
+ <p>Toque em uma restrição para ver os pratos compatíveis.</p>
+ </div>
+ </div>
+ <div class="categories" id="categories"></div>
+</section>
+<!-- Restaurantes em destaque -->
+<section class="section">
+ <div class="section-head">
+ <h2>Restaurantes em destaque</h2>
+ <a class="link" href="restaurantes.html">Ver todos →</a>
+ </div>
+ <div class="cards" id="featured-rest"></div>
+</section>
+<!-- Pratos populares -->
+<section class="section">
+ <div class="section-head">
+ <h2>Pratos populares</h2>
+ <a class="link" href="pesquisa-alimentos.html">Ver todos →</a>
+ </div>
+ <div class="cards" id="featured-dishes"></div>
+</section>
+<!-- Como funciona -->
+<section class="section">
+ <div class="section-head"><h2>Como funciona</h2></div>
+ <div class="how" id="how"></div>
+</section>
+<!-- Footer -->
+<footer class="footer">
+ <div class="footer-inner">
+ <div class="footer-col">
+ <a class="brand" href="HomePage.html"><span class="branddot">S</span><span>SafeBite</span></a>
+ <p class="muted">Plataforma educacional para localizar pratos e
+restaurantes de acordo com restrições alimentares.</p>
+ </div>
+ <div class="footer-col">
+ <h4>Plataforma</h4>
+ <a href="restaurantes.html">Restaurantes</a>
+ <a href="pesquisa-alimentos.html">Cardápio</a>
+ <a href="perfil.html">Meu perfil</a>
+ </div>
+ <div class="footer-col">
+ <h4>Legal</h4>
+ <a href="#" id="link-terms">Termos de uso</a>
+ <a href="#" id="link-privacy">Política de privacidade</a>
+ <a href="#" id="link-cookies">Cookies</a>
+ </div>
+ <div class="footer-col">
+ <h4>Contato</h4>
+ <p class="muted">contato@safebite.app</p>
+ <p class="muted">São Paulo · Brasil</p>
+ </div>
+ </div>
+ <div class="footer-bottom">
+ <p id="copyright"></p>
+ <p class="muted small">SafeBite® é uma marca fictícia usada para fins
+didáticos. Todos os dados exibidos são de exemplo.</p>
+ </div>
+</footer>
+<!-- Modal -->
+<div class="modal" id="modal" role="dialog" aria-modal="true" arialabelledby="modal-title">
+ <div class="modal-box">
+ <header class="modal-head">
+ <h3 id="modal-title"></h3>
+ <button class="modal-close" id="modal-close" arialabel="Fechar">✕</button>
+ </header>
+ <div class="modal-body" id="modal-body"></div>
+ </div>
+</div>
+<script src="../js/home.js"></script>
+</body>
+</html>
