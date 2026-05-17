@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SafeBite — Pagamento</title>
+<link rel="stylesheet" href="assets/css/pagamento.css">
+</head>
+<body>
+<nav class="nav">
+<div class="nav-inner">
+<a class="brand" href="index.html">
+<span class="brand-dot">S</span>
+SafeBite
+</a>
+<div class="nav-links">
+<a class="nav-link" href="HomePage.html">Início</a>
+<a class="nav-link" href="restaurantes.html">Restaurantes</a>
+<a class="nav-link" href="pesquisa-alimentos.html">Alimentos</a>
+<a class="nav-link active" href="pagamento.html">Pagamento</a>
+<a class="nav-link" href="perfil.html">Perfil</a>
+</div>
+</div>
+</nav>
+<div class="wrap">
+<div class="glow"></div>
+<div class="eyebrow">⌬ Checkout</div>
+<h1>Finalizar pedido</h1>
+<p class="lead">Confirme o endereço, escolha a forma de pagamento e revise o pedido.</p>
+<div class="steps">
+<div class="step done">
+<div class="num">✓</div>
+Carrinho
+</div>
+<div class="step-sep"></div>
+<div class="step active">
+<div class="num">2</div>
+Pagamento
+</div>
+<div class="step-sep"></div>
+<div class="step">
+<div class="num">3</div>
+Confirmação
+</div>
+</div>
+<form class="grid" id="form">
+<div>
+<div class="card">
+<h2>
+<span class="ico">📍</span>
+Endereço de entrega
+</h2>
+<div class="address-row">
+<div class="address-info" id="address"></div>
+<a href="perfil.html" class="edit">Alterar</a>
+</div>
+</div>
+<div class="card">
+<h2>
+<span class="ico">💳</span>
+Forma de pagamento
+</h2>
+<div class="methods" id="methods">
+<button type="button" class="method active" data-method="pix">
+<div class="method-ico">⚡</div>
+<div class="method-label">PIX</div>
+<div class="method-check">✓</div>
+</button>
+<button type="button" class="method" data-method="credito">
+<div class="method-ico">💳</div>
+<div class="method-label">Crédito</div>
+<div class="method-check">✓</div>
+</button>
+<button type="button" class="method" data-method="debito">
+<div class="method-ico">🏦</div>
+<div class="method-label">Débito</div>
+<div class="method-check">✓</div>
+</button>
+<button type="button" class="method" data-method="dinheiro">
+<div class="method-ico">💵</div>
+<div class="method-label">Dinheiro</div>
+<div class="method-check">✓</div>
+</button>
+</div>
+</div>
+<div class="card">
+<h2>
+<span class="ico">📝</span>
+Observações
+</h2>
+<textarea class="input" name="notes" rows="3" placeholder="Avise sobre alergias, ponto de referência..." style="resize:none"></textarea>
+</div>
+</div>
+<aside class="summary">
+<div class="card">
+<h2>
+<span class="ico">🧾</span>
+Resumo do pedido
+</h2>
+<div id="items"></div>
+<div class="totals">
+<div class="total-line">
+<span>Subtotal</span>
+<span id="subtotal">R$ 0,00</span>
+</div>
+<div class="total-line">
+<span>Taxa de entrega</span>
+<span id="delivery">R$ 6,90</span>
+</div>
+<div class="total-line final">
+<span>Total</span>
+<span id="total">R$ 0,00</span>
+</div>
+</div>
+<button type="submit" class="submit" id="submit">
+<span id="submit-icon">⚡</span>
+<span id="submit-text">Pagar com PIX</span>
+</button>
+<p class="note">
+🔒 Pagamento simulado.
+Nenhum dado financeiro é enviado.
+</p>
+</div>
+</aside>
+</form>
+</div>
+<script src="assets/js/pagamento.js"> </script>
+</body>
+</html>
+
