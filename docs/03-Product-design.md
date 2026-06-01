@@ -2,13 +2,7 @@
 
 ## Histórias de usuários
 
-| EU COMO... | QUERO/PRECISO... | PARA... |
-|------------|------------------|----------|
-| Usuário com restrição alimentar | Filtrar restaurantes por restrição | Encontrar opções seguras |
-| Usuário com restrição alimentar | Ver ingredientes dos pratos | Garantir segurança alimentar |
-| Usuário com restrição alimentar | Buscar restaurantes inclusivos | Ter mais opções |
-| Usuário do sistema | Criar e editar perfil | Personalizar restrições |
-| Restaurante | Divulgar cardápio | Atrair clientes |
+![Historia Usuarios](images/Historia-Usuarios.png)
 
 ---
 
@@ -17,11 +11,19 @@
 O sistema conecta usuários com restrições alimentares a restaurantes seguros e transparentes.
 
 ### Valor para o usuário:
+
+![Proposta Valor Usuário](images/Proposta-Valor1.png)
+
+![Proposta Valor Usuário](images/Proposta-Valor2.png)
+
 - Segurança alimentar
 - Facilidade de busca
 - Autonomia na escolha
 
 ### Valor para o restaurante:
+
+![Proposta Valor Restaurante](images/Proposta-Valor3.png)
+
 - Maior visibilidade
 - Público segmentado
 - Diferenciação no mercado
