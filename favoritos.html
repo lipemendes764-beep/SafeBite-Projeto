@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SafeBite — Meus Favoritos</title>
+  <link rel="stylesheet" href="assets/css/favorito.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lucide-static@latest/font/lucide.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="brand-icon"><i class="icon-leaf"></i></div>
+        <span>SafeBite</span>
+      </div>
+      <nav class="nav" id="nav"></nav>
+      <div class="search">
+        <i class="icon-search"></i>
+        <input type="text" placeholder="Buscar favorito..." />
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="page-header">
+      <div class="heart-badge"><i class="icon-heart"></i></div>
+      <div>
+        <h1>Meus favoritos</h1>
+        <p>Nada salvo ainda — toque no coração nos cards para começar.</p>
+      </div>
+    </div>
+
+    <section class="favorite-section" data-section="foods">
+      <div class="section-header">
+        <i class="icon-utensils-crossed section-icon"></i>
+        <h2>Comidas favoritas</h2>
+        <span class="counter" id="count-foods">0</span>
+      </div>
+      <div class="section-body">
+        <div class="empty" id="empty-foods">
+          <i class="icon-heart"></i>
+          <p>Você ainda não salvou nenhuma receita. Clique no coração para favoritar!</p>
+        </div>
+        <div class="grid" id="grid-foods"></div>
+        <div class="add-row">
+          <input id="input-foods" type="text" maxlength="40" placeholder="Nome da receita..." />
+          <button class="btn-primary" data-add="foods">Adicionar</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="favorite-section" data-section="restaurants">
+      <div class="section-header">
+        <i class="icon-store section-icon"></i>
+        <h2>Restaurantes favoritos</h2>
+        <span class="counter" id="count-restaurants">0</span>
+      </div>
+      <div class="section-body">
+        <div class="empty" id="empty-restaurants">
+          <i class="icon-store"></i>
+          <p>Nenhum restaurante favoritado. Toque no coração nos cards de restaurantes para salvar.</p>
+        </div>
+        <div class="grid" id="grid-restaurants"></div>
+        <div class="add-row">
+          <input id="input-restaurants" type="text" maxlength="40" placeholder="Nome do restaurante..." />
+          <button class="btn-primary" data-add="restaurants">Adicionar</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="assets/js/favorito.js"></script>
+</body>
+</html>
