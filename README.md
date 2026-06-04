@@ -14,6 +14,7 @@ Além disso, o sistema pretende promover a inclusão alimentar ao dar visibilida
 ## Integrantes
 
 -Felipe Gabriel da Silva Mendes
+-Kayanne Kelly Rodrigues Gomes
 -Marcos Paulo Meira de Oliveira
 -Thiago Debortoli Moreira Zanetti
 -Yuri Tadeu Gonçalves Barbosa
