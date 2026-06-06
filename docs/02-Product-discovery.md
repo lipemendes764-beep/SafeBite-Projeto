@@ -4,6 +4,8 @@
 
 ### Matriz CSD
 
+![Matriz CSD](images/Matriz-CSD.png)
+
 **Certezas**
 - Pessoas possuem restrições alimentares que exigem cuidados
 - Falta de informação pode gerar riscos à saúde
@@ -20,6 +22,8 @@
 
 ### Mapa de stakeholders
 
+![Mapa Stakeholders](images/Mapa-StakeHolders.png)
+
 - Usuários com restrições alimentares
 - Restaurantes
 - Equipe de desenvolvimento
@@ -28,6 +32,8 @@
 ---
 
 ### Pesquisa e entendimento
+
+![Highlights Pesquisa](images/Highlights-Pesquisa.png)
 
 - Falta de transparência em cardápios digitais
 - Usuários evitam restaurantes por insegurança
@@ -40,17 +46,25 @@
 
 ### Personas
 
+![Persona 1 - Clausio](images/Persona-Claudio.png)
+
 **Claudio**
 - 20 a 48 anos
 - Possui restrições alimentares
 - Objetivo: segurança ao comer fora
 - Dor: falta de informação confiável
 
+
+![Persona 2 - Roberta](images/Persona-Roberta.png)
+
 **Roberta**
 - 30 a 50 anos
 - Busca alimentação saudável
 - Objetivo: praticidade na escolha
 - Dor: dificuldade de filtragem
+
+
+![Persona 3 - Celso](images/Persona-Celso.png)
 
 **Celso**
 - 28 a 59 anos
