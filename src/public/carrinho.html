@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SafeBite — Carrinho</title>
+  <link rel="stylesheet" href="assets/css/carrinho.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a href="#" class="logo" aria-label="SafeBite — início">
+        <span class="logo-mark">SB</span>
+        <span class="logo-text">SafeBite</span>
+      </a>
+      <nav class="topbar-nav" aria-label="Navegação">
+        <a href="home.html">Início</a>
+        <a href="restaurantes.html">Restaurantes</a>
+        <a href="carrinho.html" class="active" aria-current="page">Carrinho</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container cart-page">
+    <section class="cart-header">
+      <div>
+        <p class="eyebrow">Seu pedido</p>
+        <h1>Carrinho</h1>
+        <p class="muted" id="cart-subtitle">Carregando itens…</p>
+      </div>
+      <button class="btn btn-ghost" id="btn-clear" type="button">Limpar carrinho</button>
+    </section>
+
+    <div class="cart-layout">
+      <section class="cart-items" aria-labelledby="lista-itens">
+        <h2 id="lista-itens" class="sr-only">Itens no carrinho</h2>
+        <ul id="cart-list" class="cart-list"></ul>
+
+        <div id="empty-state" class="empty-state" hidden>
+          <div class="empty-icon" aria-hidden="true">🛒</div>
+          <h3>Seu carrinho está vazio</h3>
+          <p>Explore restaurantes e adicione pratos deliciosos.</p>
+          <button class="btn btn-primary" type="button" onclick="window.location.href='restaurantes.html'">Explorar restaurantes</button>
+        </div>
+      </section>
+
+      <aside class="cart-summary" aria-labelledby="resumo">
+        <h2 id="resumo">Resumo do pedido</h2>
+        <dl class="summary-list">
+          <div><dt>Subtotal</dt><dd id="sum-subtotal">R$ 0,00</dd></div>
+          <div><dt>Taxa de entrega</dt><dd id="sum-delivery">R$ 0,00</dd></div>
+          <div class="summary-total"><dt>Total</dt><dd id="sum-total">R$ 0,00</dd></div>
+        </dl>
+        <button class="btn btn-primary btn-block" id="btn-checkout" type="button">
+          Finalizar pedido
+        </button>
+        <p class="summary-note">Pagamento via Pix, cartão ou na entrega.</p>
+      </aside>
+    </div>
+  </main>
+
+  <template id="item-template">
+    <li class="cart-item">
+      <img class="item-image" alt="" />
+      <div class="item-info">
+        <p class="item-restaurant"></p>
+        <h3 class="item-name"></h3>
+        <p class="item-desc"></p>
+        <div class="item-tags"></div>
+      </div>
+      <div class="item-actions">
+        <p class="item-price"></p>
+        <div class="qty">
+          <button class="qty-btn qty-dec" aria-label="Diminuir quantidade" type="button">−</button>
+          <span class="qty-value" aria-live="polite"></span>
+          <button class="qty-btn qty-inc" aria-label="Aumentar quantidade" type="button">+</button>
+        </div>
+        <button class="item-remove" type="button" aria-label="Remover item">Remover</button>
+      </div>
+    </li>
+  </template>
+
+  <script src="assets/js/carrinho.js"></script>
+</body>
+</html>
