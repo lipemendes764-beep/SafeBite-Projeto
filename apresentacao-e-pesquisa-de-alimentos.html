@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>SafeBite — Apresentação e Pesquisa de Alimentos</title>
+
+    <link rel="stylesheet" href="assets/css/apresentacao-e-pesquisa-de-alimentos.css">
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="nav">
+        <div class="nav-inner">
+
+            <a class="brand" href="home.html">
+                <span class="brand-dot">S</span>
+                SafeBite
+            </a>
+
+            <div class="nav-links">
+                <a class="nav-link" href="home.html">Início</a>
+                <a class="nav-link" href="restaurantes.html">Restaurantes</a>
+                <a class="nav-link" href="cadastrode-restaurante.html">Cadastrar</a>
+                <a class="nav-link active" href="pesquisa-alimentos.html">Alimentos</a>
+                <a class="nav-link" href="cadastrocliente.html">Clientes</a>
+                <a class="nav-link" href="cadastro-prato.html">Pratos</a>
+                <a class="nav-link" href="registro-venda.html">Vendas</a>
+                <a class="nav-link" href="perfil.html">Perfil</a>
+            </div>
+
+        </div>
+    </nav>
+
+    <!-- CONTEÚDO -->
+    <div class="wrap">
+
+        <div class="glow"></div>
+
+        <div class="eyebrow">
+            ◎ Descoberta
+        </div>
+
+        <h1>Apresentação e Pesquisa de Alimentos</h1>
+
+        <p class="lead">
+            Explore o cardápio completo e encontre pratos por nome,
+            preço, restaurante ou restrições alimentares.
+        </p>
+
+        <!-- FILTROS -->
+        <div class="filters">
+
+            <div class="filter-row">
+
+                <div class="search">
+                    <input
+                        id="q"
+                        type="search"
+                        placeholder="Buscar por nome ou descrição..."
+                    />
+                </div>
+
+                <input
+                    id="maxPrice"
+                    class="input"
+                    type="number"
+                    min="0"
+                    step="0.01"
+                    placeholder="Preço máx. (R$)"
+                />
+
+                <select id="restFilter" class="input">
+                    <option value="" style="background:#161c18">
+                        Todos os restaurantes
+                    </option>
+                </select>
+
+            </div>
+
+            <fieldset>
+
+                <div
+                    style="
+                        display:flex;
+                        align-items:center;
+                        justify-content:space-between;
+                        margin-bottom:.6rem;
+                    "
+                >
+
+                    <legend>Filtrar por restrição</legend>
+
+                    <button
+                        type="button"
+                        class="clear"
+                        id="clear"
+                    >
+                        Limpar filtros
+                    </button>
+
+                </div>
+
+                <div class="chips" id="chips"></div>
+
+            </fieldset>
+
+        </div>
+
+        <!-- KPIs -->
+        <div class="kpis">
+
+            <div class="kpi">
+                <div class="kpi-label">Pratos no catálogo</div>
+                <div class="kpi-value" id="kpi-total">0</div>
+            </div>
+
+            <div class="kpi">
+                <div class="kpi-label">Resultados</div>
+                <div class="kpi-value" id="kpi-results">0</div>
+            </div>
+
+            <div class="kpi">
+                <div class="kpi-label">Preço médio</div>
+                <div class="kpi-value" id="kpi-avg">R$ 0,00</div>
+            </div>
+
+            <div class="kpi">
+                <div class="kpi-label">Restaurantes</div>
+                <div class="kpi-value" id="kpi-rest">0</div>
+            </div>
+
+        </div>
+
+        <!-- CABEÇALHO DA LISTA -->
+        <div class="list-head">
+
+            <h2 style="margin:0">Resultados</h2>
+
+            <div class="sort" role="tablist" aria-label="Ordenar">
+
+                <button data-sort="relevance" class="active">
+                    Relevância
+                </button>
+
+                <button data-sort="price-asc">
+                    Preço ↑
+                </button>
+
+                <button data-sort="price-desc">
+                    Preço ↓
+                </button>
+
+                <button data-sort="name">
+                    A–Z
+                </button>
+
+            </div>
+
+        </div>
+
+        <!-- LISTA -->
+        <div id="list" class="cards"></div>
+
+    </div>
+
+    <script src="assets/js/apresentacao-e-pesquisa-de-alimentos.js"></script>
+
+</body>
+</html>
