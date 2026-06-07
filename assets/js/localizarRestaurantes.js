@@ -2,9 +2,8 @@
    SafeBite — Localizar Restaurantes
    ───────────────────────────────────────────── */
 
-const RKEY    = "safebite_restaurants";
-const FAVKEY  = "safebite_fav_restaurants";
-const HISTKEY = "safebite_search_history";
+const RKEY   = "safebite_restaurants";
+const FAVKEY = "safebite_fav_restaurants";
 const PROFKEY = "safebite_user_profile";
 
 /* ── Restrições suportadas ── */
@@ -23,7 +22,7 @@ const RESTRICTIONS = [
     ["diabetico",         "Diabético"]
 ];
 
-/* ── Dados seed (usados se localStorage estiver vazio) ── */
+/* ── Dados seed ── */
 const SEED_R = [
     {
         id: "rt1",
@@ -41,14 +40,14 @@ const SEED_R = [
         rating: 4.7,
         ratingCount: 218,
         safebite: true,
-        distance: null,
+        distance: 2.3,
         menu: [
-            { name: "Lasanha de Berinjela",   price: 42.90, tags: ["vegano","sem-gluten"] },
-            { name: "Salada do Verde",         price: 32.00, tags: ["vegano","organico"] },
-            { name: "Bowl de Quinoa",          price: 38.50, tags: ["vegano","sem-lactose"] }
+            { name: "Lasanha de Berinjela", price: 42.90, tags: ["vegano", "sem-gluten"] },
+            { name: "Salada do Verde",      price: 32.00, tags: ["vegano", "organico"] },
+            { name: "Bowl de Quinoa",       price: 38.50, tags: ["vegano", "sem-lactose"] }
         ],
         comments: [
-            { author: "Ana P.",  text: "Melhor lasanha vegana que já comi. Ambiente acolhedor!" },
+            { author: "Ana P.",    text: "Melhor lasanha vegana que já comi. Ambiente acolhedor!" },
             { author: "Carlos M.", text: "Perfeito para celíacos. Nunca tive reação." }
         ]
     },
@@ -68,11 +67,11 @@ const SEED_R = [
         rating: 4.5,
         ratingCount: 134,
         safebite: true,
-        distance: null,
+        distance: 5.8,
         menu: [
-            { name: "Pizza Margherita SG",    price: 58.00, tags: ["sem-gluten","vegetariano"] },
-            { name: "Risoto de Cogumelos",     price: 52.00, tags: ["sem-gluten"] },
-            { name: "Tiramisu SG",             price: 24.00, tags: ["sem-gluten"] }
+            { name: "Pizza Margherita SG", price: 58.00, tags: ["sem-gluten", "vegetariano"] },
+            { name: "Risoto de Cogumelos", price: 52.00, tags: ["sem-gluten"] },
+            { name: "Tiramisu SG",         price: 24.00, tags: ["sem-gluten"] }
         ],
         comments: [
             { author: "Juliana R.", text: "A massa sem glúten é incrível, não parece!" },
@@ -95,11 +94,11 @@ const SEED_R = [
         rating: 4.3,
         ratingCount: 87,
         safebite: true,
-        distance: null,
+        distance: 12.1,
         menu: [
-            { name: "Bowl Mediterrâneo",  price: 46.50, tags: ["kosher","vegetariano","sem-lactose"] },
-            { name: "Falafel Artesanal",  price: 28.00, tags: ["kosher","vegano"] },
-            { name: "Hummus Especial",    price: 19.90, tags: ["kosher","vegano"] }
+            { name: "Bowl Mediterrâneo", price: 46.50, tags: ["kosher", "vegetariano", "sem-lactose"] },
+            { name: "Falafel Artesanal", price: 28.00, tags: ["kosher", "vegano"] },
+            { name: "Hummus Especial",   price: 19.90, tags: ["kosher", "vegano"] }
         ],
         comments: [
             { author: "David L.", text: "Autêntico e delicioso. Ótima opção kosher em Curitiba." }
@@ -117,15 +116,15 @@ const SEED_R = [
         phone: "(31) 3344-5566",
         hours: "Seg–Sáb 11h30–15h | 18h–22h",
         restrictions: ["sem-lactose", "sem-gluten"],
-        allergenInfo: "⚠ Informações incompletas sobre alergênicos. Consulte o atendimento.",
+        allergenInfo: "Informações incompletas sobre alergênicos. Consulte o atendimento.",
         rating: 3.9,
         ratingCount: 52,
         safebite: false,
-        distance: null,
+        distance: 18.4,
         menu: [
-            { name: "Feijão Tropeiro",    price: 34.00, tags: ["sem-lactose"] },
-            { name: "Frango Caipira",     price: 48.00, tags: [] },
-            { name: "Arroz com Pequi",    price: 38.00, tags: ["sem-gluten","sem-lactose"] }
+            { name: "Feijão Tropeiro", price: 34.00, tags: ["sem-lactose"] },
+            { name: "Frango Caipira",  price: 48.00, tags: [] },
+            { name: "Arroz com Pequi", price: 38.00, tags: ["sem-gluten", "sem-lactose"] }
         ],
         comments: [
             { author: "Fernanda T.", text: "Comida gostosa mas não souberam dizer sobre glúten nos molhos." }
@@ -147,14 +146,14 @@ const SEED_R = [
         rating: 4.6,
         ratingCount: 310,
         safebite: true,
-        distance: null,
+        distance: 3.7,
         menu: [
-            { name: "Sashimi Premium",   price: 68.00, tags: ["sem-lactose","sem-amendoim"] },
-            { name: "Temaki de Salmão",  price: 29.00, tags: ["sem-lactose"] },
-            { name: "Gyoza Vegetal",     price: 24.00, tags: ["vegano"] }
+            { name: "Sashimi Premium",  price: 68.00, tags: ["sem-lactose", "sem-amendoim"] },
+            { name: "Temaki de Salmão", price: 29.00, tags: ["sem-lactose"] },
+            { name: "Gyoza Vegetal",    price: 24.00, tags: ["vegano"] }
         ],
         comments: [
-            { author: "Kenji A.",   text: "Melhor japonês de SP! Atenção total com alergias." },
+            { author: "Kenji A.",    text: "Melhor japonês de SP! Atenção total com alergias." },
             { author: "Patrícia V.", text: "Sempre informam claramente os ingredientes." }
         ]
     },
@@ -174,11 +173,11 @@ const SEED_R = [
         rating: 4.4,
         ratingCount: 175,
         safebite: true,
-        distance: null,
+        distance: 7.2,
         menu: [
-            { name: "Kafta Grelhada",  price: 39.00, tags: ["halal","sem-lactose"] },
-            { name: "Esfiha Aberta",   price: 12.00, tags: ["halal"] },
-            { name: "Coalhada Seca",   price: 18.00, tags: ["halal","vegetariano"] }
+            { name: "Kafta Grelhada", price: 39.00, tags: ["halal", "sem-lactose"] },
+            { name: "Esfiha Aberta",  price: 12.00, tags: ["halal"] },
+            { name: "Coalhada Seca",  price: 18.00, tags: ["halal", "vegetariano"] }
         ],
         comments: [
             { author: "Ibrahim N.", text: "Autêntico e saboroso. Certificação halal confiável." }
@@ -189,7 +188,7 @@ const SEED_R = [
 /* ── Helpers ── */
 function esc(str) {
     return String(str || "").replace(/[&<>"']/g, c => ({
-        "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
     }[c]));
 }
 
@@ -205,117 +204,67 @@ function starsHTML(rating) {
            "★".repeat(empty).split("").map(s => `<span class="star-empty">${s}</span>`).join("");
 }
 
-/* ── Estado ── */
+/* ── Estado dos filtros ── */
 let query    = "";
 let location = "";
 let cuisine  = "";
 let sortMode = "relevance";
-const selected = new Set(); // filtros ativos por restrição
+let geoAtivo = false;
 
-/* ── Dados ── */
+const selected = new Set(); // restrições ativas
+
+/* ── localStorage ── */
 function loadJSON(key, seed) {
     const raw = localStorage.getItem(key);
     if (!raw) { localStorage.setItem(key, JSON.stringify(seed)); return seed.slice(); }
     try { return JSON.parse(raw); } catch { return seed.slice(); }
 }
-function saveJSON(key, data) { localStorage.setItem(key, JSON.stringify(data)); }
+function saveJSON(key, data) {
+    localStorage.setItem(key, JSON.stringify(data));
+}
 
 const restaurants = loadJSON(RKEY, SEED_R);
-let   favs        = loadJSON(FAVKEY, []);
-let   history     = loadJSON(HISTKEY, []);
-let   userProfile = loadJSON(PROFKEY, []);  // array de restriction ids
+let favs         = loadJSON(FAVKEY, []);
+let userProfile  = loadJSON(PROFKEY, []); // ids de restrições do perfil do usuário
 
-/* ── Geolocalização simulada ── */
-let userLocation = null; // { lat, lng, label }
+/* ── Ordenação por distância ── */
+document.getElementById("btnGeo").onclick = () => {
+    geoAtivo = true;
 
-function haversine(lat1, lng1, lat2, lng2) {
-    const R = 6371;
-    const dLat = (lat2 - lat1) * Math.PI / 180;
-    const dLng = (lng2 - lng1) * Math.PI / 180;
-    const a = Math.sin(dLat/2)**2 +
-              Math.cos(lat1 * Math.PI/180) * Math.cos(lat2 * Math.PI/180) *
-              Math.sin(dLng/2)**2;
-    return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-}
+    // Exibe aviso de localização ativa
+    let info = document.getElementById("geoInfo");
+    if (!info) {
+        info = document.createElement("div");
+        info.id = "geoInfo";
+        info.className = "geo-info";
+        document.querySelector(".wrap").insertBefore(info, document.querySelector(".filters"));
+    }
+    info.innerHTML = "📍 Localização ativa — restaurantes ordenados por distância";
 
-// Coordenadas aproximadas por cidade (seed)
-const CITY_COORDS = {
-    "São Paulo":         { lat: -23.5505, lng: -46.6333 },
-    "Rio de Janeiro":    { lat: -22.9068, lng: -43.1729 },
-    "Curitiba":          { lat: -25.4284, lng: -49.2733 },
-    "Belo Horizonte":    { lat: -19.9167, lng: -43.9345 },
+    // Muda ordenação para distância automaticamente
+    sortMode = "distance";
+    document.querySelectorAll(".sort button").forEach(b => b.classList.remove("active"));
+    document.querySelector("[data-sort='distance']").classList.add("active");
+
+    render();
 };
 
-function calcDistances() {
-    if (!userLocation) { restaurants.forEach(r => r.distance = null); return; }
-    restaurants.forEach(r => {
-        const coords = CITY_COORDS[r.city];
-        if (coords) {
-            r.distance = haversine(userLocation.lat, userLocation.lng, coords.lat, coords.lng);
-        } else {
-            r.distance = null;
-        }
-    });
-}
-
-function requestGeo() {
-    if (!navigator.geolocation) {
-        alert("Geolocalização não suportada pelo seu navegador.");
-        return;
-    }
-    navigator.geolocation.getCurrentPosition(pos => {
-        userLocation = {
-            lat:   pos.coords.latitude,
-            lng:   pos.coords.longitude,
-            label: "Localização atual"
-        };
-        calcDistances();
-        showGeoInfo();
-        render();
-    }, () => {
-        alert("Não foi possível obter a localização. Verifique as permissões do navegador.");
-    });
-}
-
-function showGeoInfo() {
-    let el = document.getElementById("geoInfo");
-    if (!el) {
-        el = document.createElement("div");
-        el.id = "geoInfo";
-        el.className = "geo-info";
-        document.querySelector(".wrap").insertBefore(
-            el,
-            document.querySelector(".filters")
-        );
-    }
-    el.innerHTML = `📍 Usando sua localização atual — distâncias calculadas`;
-}
-
-/* ── Histórico de buscas ── */
-function addHistory(term) {
-    if (!term || term.length < 2) return;
-    history = [term, ...history.filter(h => h !== term)].slice(0, 10);
-    saveJSON(HISTKEY, history);
-}
-
 /* ── Perfil de restrições ── */
+function updateProfileBanner() {
+    const sub = document.getElementById("profileSub");
+    sub.textContent = userProfile.length === 0
+        ? "Nenhuma restrição configurada"
+        : userProfile.map(labelOf).join(" · ");
+}
+
 function applyProfile() {
     userProfile.forEach(id => selected.add(id));
     syncChips();
     updateProfileBanner();
 }
 
-function updateProfileBanner() {
-    const sub = document.getElementById("profileSub");
-    if (userProfile.length === 0) {
-        sub.textContent = "Nenhuma restrição configurada";
-    } else {
-        sub.textContent = userProfile.map(labelOf).join(" · ");
-    }
-}
-
-/* ── Chips de filtro (barra) ── */
-const chipsEl = document.getElementById("chips");
+/* ── Chips da barra de filtros ── */
+const chipsEl  = document.getElementById("chips");
 const chipBtns = {};
 
 RESTRICTIONS.forEach(([id, label]) => {
@@ -339,7 +288,7 @@ function syncChips() {
 }
 
 /* ── Chips do modal de perfil ── */
-const profileChipsEl = document.getElementById("profileChips");
+const profileChipsEl  = document.getElementById("profileChips");
 const profileChipBtns = {};
 
 RESTRICTIONS.forEach(([id, label]) => {
@@ -365,7 +314,7 @@ function syncProfileChips() {
     });
 }
 
-/* ── Modal perfil ── */
+/* ── Modal: perfil ── */
 document.getElementById("btnProfile").onclick = () => {
     syncProfileChips();
     document.getElementById("modalOverlay").classList.add("open");
@@ -385,13 +334,9 @@ document.getElementById("saveProfile").onclick = () => {
     document.getElementById("modalOverlay").classList.remove("open");
 };
 
-/* ── Geolocalização botão ── */
-document.getElementById("btnGeo").onclick = requestGeo;
-
 /* ── Inputs ── */
 document.getElementById("q").addEventListener("input", e => {
     query = e.target.value.toLowerCase().trim();
-    addHistory(query);
     render();
 });
 
@@ -432,28 +377,30 @@ function toggleFav(id) {
     render();
 }
 
-/* ── Abrir no mapa (Google Maps) ── */
+/* ── Rota no Google Maps ── */
 function openRoute(address) {
     const url = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(address)}`;
     window.open(url, "_blank");
 }
 
-/* ── Modal detalhes ── */
+/* ── Modal: detalhes do restaurante ── */
 function openDetail(id) {
     const r = restaurants.find(x => x.id === id);
     if (!r) return;
+
     document.getElementById("detailName").textContent = r.name;
 
-    const safeIcon  = r.safebite ? `<span class="safebite-seal">✔ Selo SafeBite</span>` : "";
-    const alertIcon = !r.safebite
+    const sealHTML  = r.safebite ? `<span class="safebite-seal">✔ Selo SafeBite</span>` : "";
+    const alertHTML = !r.safebite
         ? `<div class="alert-risk">⚠ ${esc(r.allergenInfo)}</div>` : "";
 
     const menuHTML = r.menu.map(item => `
         <div class="detail-menu-item">
-            <span>${esc(item.name)}
+            <span>
+                ${esc(item.name)}
                 ${item.tags.map(t => `<span class="tag" style="margin-left:.3rem">${esc(labelOf(t))}</span>`).join("")}
             </span>
-            <span class="detail-menu-price">R$ ${item.price.toFixed(2).replace(".",",")}</span>
+            <span class="detail-menu-price">R$ ${item.price.toFixed(2).replace(".", ",")}</span>
         </div>
     `).join("");
 
@@ -467,8 +414,8 @@ function openDetail(id) {
         : `<p style="color:#78716c;font-size:.88rem">Nenhum comentário ainda.</p>`;
 
     document.getElementById("detailBody").innerHTML = `
-        ${safeIcon}
-        ${alertIcon}
+        ${sealHTML}
+        ${alertHTML}
 
         <div class="detail-section">
             <div class="detail-section-title">Informações</div>
@@ -481,7 +428,9 @@ function openDetail(id) {
 
         <div class="detail-section">
             <div class="detail-section-title">Restrições atendidas</div>
-            <div class="tags">${r.restrictions.map(x => `<span class="tag">${esc(labelOf(x))}</span>`).join("")}</div>
+            <div class="tags">
+                ${r.restrictions.map(x => `<span class="tag">${esc(labelOf(x))}</span>`).join("")}
+            </div>
         </div>
 
         <div class="detail-section">
@@ -514,53 +463,49 @@ document.getElementById("detailOverlay").onclick = e => {
         document.getElementById("detailOverlay").classList.remove("open");
 };
 
-/* ── Render ── */
+/* ── Render principal ── */
 function render() {
+
+    // 1. Filtrar
     let filtered = restaurants.filter(r => {
 
-        // Busca por nome
         const qMatch = !query ||
             r.name.toLowerCase().includes(query) ||
             r.cuisine.toLowerCase().includes(query);
 
-        // Localização (cidade, bairro ou CEP)
         const locMatch = !location ||
             r.city.toLowerCase().includes(location) ||
             (r.neighborhood || "").toLowerCase().includes(location) ||
-            (r.cep || "").replace(/\D/g,"").includes(location.replace(/\D/g,"")) ||
+            (r.cep || "").replace(/\D/g, "").includes(location.replace(/\D/g, "")) ||
             (r.state || "").toLowerCase().includes(location);
 
-        // Culinária
         const cuisMatch = !cuisine || r.cuisine === cuisine;
 
-        // Restrições (todas devem estar presentes)
         const restMatch = selected.size === 0 ||
             Array.from(selected).every(id => r.restrictions.includes(id));
 
         return qMatch && locMatch && cuisMatch && restMatch;
     });
 
-    // Ordenação
+    // 2. Ordenar
     if (sortMode === "name") {
         filtered.sort((a, b) => a.name.localeCompare(b.name, "pt-BR"));
+
     } else if (sortMode === "rating") {
         filtered.sort((a, b) => b.rating - a.rating);
+
     } else if (sortMode === "distance") {
-        filtered.sort((a, b) => {
-            if (a.distance === null && b.distance === null) return 0;
-            if (a.distance === null) return 1;
-            if (b.distance === null) return -1;
-            return a.distance - b.distance;
-        });
+        filtered.sort((a, b) => a.distance - b.distance);
+
     } else {
-        // Relevância: SafeBite primeiro, depois nota
+        // Relevância: Selo SafeBite primeiro, depois maior nota
         filtered.sort((a, b) => {
             if (b.safebite !== a.safebite) return b.safebite ? 1 : -1;
             return b.rating - a.rating;
         });
     }
 
-    // KPIs
+    // 3. KPIs
     document.getElementById("kpi-total").textContent   = restaurants.length;
     document.getElementById("kpi-results").textContent = filtered.length;
     document.getElementById("kpi-safe").textContent    = filtered.filter(r => r.safebite).length;
@@ -568,8 +513,9 @@ function render() {
     const cities = [...new Set(filtered.map(r => r.city))];
     document.getElementById("kpi-city").textContent =
         cities.length === 1 ? cities[0] :
-        cities.length  > 1 ? `${cities.length} cidades` : "—";
+        cities.length  > 1  ? `${cities.length} cidades` : "—";
 
+    // 4. Renderizar cards
     const list = document.getElementById("list");
 
     if (!filtered.length) {
@@ -582,10 +528,9 @@ function render() {
     }
 
     list.innerHTML = filtered.map(r => {
-        const distBadge = r.distance !== null
-            ? `<span class="distance-badge">📍 ${r.distance < 1
-                ? (r.distance * 1000).toFixed(0) + " m"
-                : r.distance.toFixed(1) + " km"} de distância</span>`
+
+        const distBadge = geoAtivo
+            ? `<span class="distance-badge">📍 ${r.distance.toFixed(1)} km de distância</span>`
             : "";
 
         const sealBadge = r.safebite
@@ -597,7 +542,7 @@ function render() {
         const tagList = r.restrictions.slice(0, 4)
             .map(x => `<span class="tag">${esc(labelOf(x))}</span>`).join("");
 
-        const favActive = isFav(r.id) ? "fav-active" : "";
+        const favClass = isFav(r.id) ? "fav-active" : "";
 
         return `
         <article class="rest-card">
@@ -627,7 +572,7 @@ function render() {
 
             <div class="card-footer">
                 <button class="btn-detail" onclick="openDetail('${r.id}')">Ver detalhes</button>
-                <button class="btn-fav ${favActive}" onclick="toggleFav('${r.id}')" title="Favoritar">
+                <button class="btn-fav ${favClass}" onclick="toggleFav('${r.id}')" title="Favoritar">
                     ${isFav(r.id) ? "★" : "☆"}
                 </button>
                 <button class="btn-route" onclick="openRoute('${esc(r.address)}')" title="Traçar rota">
@@ -638,7 +583,7 @@ function render() {
     }).join("");
 }
 
-/* ── Init ── */
+/* ── Inicialização ── */
 updateProfileBanner();
 applyProfile();
 render();
