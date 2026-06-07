@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>SafeBite — Cadastro de Cardápio</title>
+    <link rel="stylesheet" href="assets/css/cadastro-cardapio.css" />
+</head>
+
+<body>
+    <nav class="nav">
+        <div class="nav-inner">
+            <a class="brand" href="HomePage.html">
+                <span class="brand-dot">S</span> SafeBite
+            </a>
+            <div class="nav-links">
+                <a class="nav-link" href="HomePage.html">Início</a>
+                <a class="nav-link" href="restaurantes.html">Restaurantes</a>
+                <a class="nav-link" href="cadastro-de-restaurante.html">Cadastrar</a>
+                <a class="nav-link" href="pesquisa-alimentos.html">Alimentos</a>
+                <a class="nav-link" href="cadastrocliente.html">Clientes</a>
+                <a class="nav-link active" href="cadastro-cardapio.html">Cardápio</a>
+                <a class="nav-link" href="registro-venda.html">Vendas</a>
+                <a class="nav-link" href="perfil.html">Perfil</a>
+            </div>
+        </div>
+    </nav>
+    <div class="wrap" id="mainContent">
+        <div class="glow"></div>
+        <div class="eyebrow">▣ Gestão do cardápio</div>
+        <h1>Cadastro e controle do cardápio</h1>
+        <p class="lead">Adicione novos itens, filtre por categoria e gerencie o status dos pratos na plataforma
+            SafeBite.</p>
+        <div class="grid">
+            <section class="card">
+                <h2>Novo item</h2>
+                <p class="lead small">Cadastre um novo prato no cardápio SafeBite.</p>
+                <button class="submit" type="button" onclick="openNewItemModal()">+ Novo item</button>
+            </section>
+            <section class="card">
+                <div class="section-head">
+                    <div>
+                        <h2>Itens cadastrados</h2>
+                        <p class="lead small">Visualize, filtre e gerencie o cardápio existente.</p>
+                    </div>
+                    <div class="filters">
+                        <button class="filter-btn active" type="button" data-filter="todos">Todos</button>
+                        <button class="filter-btn" type="button" data-filter="entradas">Entradas</button>
+                        <button class="filter-btn" type="button" data-filter="principais">Pratos Principais</button>
+                        <button class="filter-btn" type="button" data-filter="sobremesas">Sobremesas</button>
+                        <button class="filter-btn" type="button" data-filter="bebidas">Bebidas</button>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Imagem</th>
+                                <th>Nome</th>
+                                <th>Categoria</th>
+                                <th>Preço</th>
+                                <th>Status</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="menuTable"></tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </div>
+    <div class="details-panel" id="detailsPanel">
+        <div class="details-header">
+            <h2>Detalhes do Item</h2>
+            <button class="close-btn" onclick="closeDetails()">&times;</button>
+        </div>
+        <div id="detailsContent"></div>
+    </div>
+    <div class="modal" id="newItemModal">
+        <div class="modal-box">
+            <header class="modal-head">
+                <h3 id="modal-title">Novo Item do Cardápio</h3>
+                <button class="modal-close" onclick="closeNewItemModal()" aria-label="Fechar">✕</button>
+            </header>
+            <div class="modal-body">
+                <form id="newItemForm" onsubmit="handleSubmitNewItem(event)">
+                    <div class="field">
+                        <label class="field-label required" for="itemName">Nome do prato</label>
+                        <input id="itemName" class="input form-input" type="text" required />
+                    </div>
+                    <div class="field">
+                        <label class="field-label required" for="itemDescription">Descrição</label>
+                        <textarea id="itemDescription" class="input form-input" rows="3" required></textarea>
+                    </div>
+                    <div class="row">
+                        <div class="field">
+                            <label class="field-label required" for="itemCategory">Categoria</label>
+                            <select id="itemCategory" class="input form-input" required>
+                                <option value="">Selecione...</option>
+                                <option value="Entradas">Entradas</option>
+                                <option value="Pratos Principais">Pratos Principais</option>
+                                <option value="Sobremesas">Sobremesas</option>
+                                <option value="Bebidas">Bebidas</option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label class="field-label required" for="itemPrice">Preço (R$)</label>
+                            <input id="itemPrice" class="input form-input" type="number" step="0.01" min="0" required />
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="field-label" for="itemImage">URL da imagem</label>
+                        <input id="itemImage" class="input form-input" type="url"
+                            placeholder="https://exemplo.com/imagem.jpg" />
+                    </div>
+                    <div class="field">
+                        <label class="field-label required" for="itemIngredients">Ingredientes</label>
+                        <textarea id="itemIngredients" class="input form-input" rows="3" required></textarea>
+                    </div>
+                    <div class="field">
+                        <label class="field-label" for="itemAllergens">Alérgenos</label>
+                        <input id="itemAllergens" class="input form-input" type="text"
+                            placeholder="Glúten, Laticínios, Nozes..." />
+                    </div>
+                    <div class="row">
+                        <div class="field">
+                            <label class="field-label" for="itemCalories">Calorias</label>
+                            <input id="itemCalories" class="input form-input" type="number" min="0" placeholder="350" />
+                        </div>
+                        <div class="field">
+                            <label class="field-label" for="itemProtein">Proteínas (g)</label>
+                            <input id="itemProtein" class="input form-input" type="number" min="0" placeholder="12" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="field">
+                            <label class="field-label" for="itemCarbs">Carboidratos (g)</label>
+                            <input id="itemCarbs" class="input form-input" type="number" min="0" placeholder="28" />
+                        </div>
+                        <div class="field">
+                            <label class="field-label" for="itemFat">Gorduras (g)</label>
+                            <input id="itemFat" class="input form-input" type="number" min="0" placeholder="15" />
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="field-label required" for="itemStatus">Status</label>
+                        <select id="itemStatus" class="input form-input" required>
+                            <option value="active">Ativo</option>
+                            <option value="inactive">Inativo</option>
+                        </select>
+                    </div>
+                    <div class="field actions">
+                        <button type="button" class="btn btn-secondary" onclick="closeNewItemModal()">Cancelar</button>
+                        <button type="submit" class="submit">Adicionar item</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="assets/js/cadastro-cardapio.js"></script>
+</body>
+
+</html>
