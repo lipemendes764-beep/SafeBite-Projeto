@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Entrar — SafeBite</title>
+  <link rel="stylesheet" href="css/safebite.css"/>
+  
+</head>
+<body style="background:var(--bg)">
+<div class="auth-wrap">
+  <div class="auth-box">
+    <a class="auth-logo" href="index.html">
+      <span class="brand-dot">S</span> SafeBite
+    </a>
+    <h1 class="auth-title">Bem-vindo de volta</h1>
+    <p class="auth-sub">Entre na sua conta para acessar favoritos e pedidos.</p>
+    <form id="loginForm" novalidate>
+      <div class="field">
+        <label>Login</label>
+        <input class="input" id="loginField" type="text" autocomplete="username" placeholder="seu login" required />
+      </div>
+      <div class="field">
+        <label>Senha</label>
+        <input class="input" id="senhaField" type="password" autocomplete="current-password" placeholder="••••••" required />
+      </div>
+      <div id="loginMsg" class="msg" style="display:none"></div>
+      <button class="submit" type="submit">Entrar</button>
+    </form>
+    <p class="auth-footer">Não tem conta? <a href="cadastro-usuario.html">Criar conta gratuita</a></p>
+    <p class="auth-footer" style="margin-top:.35rem;font-size:.8rem;color:var(--text-faint)">
+      Demo: <strong>admin / 123</strong> (admin) &nbsp;·&nbsp; <strong>user / 123</strong> (cliente)
+    </p>
+  </div>
+</div>
+  <script src="js/core.js"></script>
+  <script src="js/login.js"></script>
+
+</body>
+</html>

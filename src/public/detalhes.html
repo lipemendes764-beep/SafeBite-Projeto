@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Carrinho — SafeBite</title>
+  <title>Detalhes do Prato — SafeBite</title>
   <link rel="stylesheet" href="css/safebite.css"/>
   
 </head>
@@ -37,30 +37,13 @@
   </div>
 </nav>
 
-<div class="wrap">
-  <div class="eyebrow">🛒 Seu pedido</div>
-  <h1>Carrinho</h1>
-
-  <div class="cart-layout">
-    <section>
-      <div id="cartList"></div>
-    </section>
-    <aside class="summary-box">
-      <h2 style="margin:0 0 1rem;font-size:1.05rem">Resumo do pedido</h2>
-      <div id="summaryRows"></div>
-      <div class="summary-total">
-        <span>Total</span>
-        <span class="price" id="summaryTotal">R$ 0,00</span>
-      </div>
-      <button class="submit" id="btnCheckout" style="margin-top:1.25rem">Finalizar pedido</button>
-      <p class="muted small" style="text-align:center;margin:.75rem 0 0">Pix, cartão ou na entrega</p>
-    </aside>
-  </div>
+<div class="wrap" style="max-width:56rem">
+  <div id="detalhesContent"></div>
 </div>
 
   <script src="js/core.js"></script>
   <script src="js/search.js"></script>
-  <script src="js/carrinho.js"></script>
+  <script src="js/detalhes.js"></script>
 
 </body>
 </html>

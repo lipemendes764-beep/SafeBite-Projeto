@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Admin — SafeBite</title>
+  <link rel="stylesheet" href="assets/css/safebite.css"/>
+  
+</head>
+<body>
+<nav class="nav" role="navigation">
+  <div class="nav-inner">
+    <a class="brand" href="index.html">
+      <span class="brand-dot">S</span><span>SafeBite</span>
+    </a>
+    <div class="nav-search" role="search">
+      <i class="nav-search-icon" aria-hidden="true">🔎</i>
+      <input id="globalSearch" class="nav-search-input" type="search"
+        placeholder="Buscar restaurantes ou pratos…"
+        autocomplete="off" aria-label="Buscar" aria-controls="globalSearchResults" />
+      <div id="globalSearchResults" class="nav-search-results" role="listbox"></div>
+    </div>
+    <div class="nav-links" id="navLinks">
+      <a class="nav-link" href="index.html">Início</a>
+      <a class="nav-link" href="mapa.html">🗺 Mapa</a>
+      <a class="nav-link" href="favoritos.html" id="navFavoritos" style="display:none">❤ Favoritos</a>
+      <a class="nav-link" href="perfil.html" id="navPerfil" style="display:none">👤 Perfil</a>
+      <a class="nav-link active" href="admin.html" id="navAdmin" style="display:none">⚙ Admin</a>
+      <a class="nav-link" href="login.html" id="navLogin">Entrar</a>
+      <a class="nav-link" href="#" id="navLogout" style="display:none"
+        ><span id="navUser"></span> · Sair</a>
+      <a class="nav-cart" href="carrinho.html" aria-label="Carrinho">
+        🛒 <span class="nav-cart-count" id="navCartCount" style="display:none">0</span>
+      </a>
+    </div>
+    <button class="nav-hamburger" id="hamburger" aria-label="Menu">☰</button>
+  </div>
+</nav>
+
+<div class="admin-layout">
+  <!-- Sidebar -->
+  <nav class="admin-sidebar" aria-label="Menu administrativo">
+    <div class="admin-sidebar-title">Administração</div>
+    <a class="admin-nav-link active" data-panel="dashboard" href="#">
+      <i class="icon">📊</i> Dashboard
+    </a>
+    <a class="admin-nav-link" data-panel="restaurants" href="#">
+      <i class="icon">🏪</i> Restaurantes
+    </a>
+    <a class="admin-nav-link" data-panel="dishes" href="#">
+      <i class="icon">🍽</i> Pratos
+    </a>
+    <a class="admin-nav-link" data-panel="users" href="#">
+      <i class="icon">👤</i> Usuários
+    </a>
+    <hr style="border:none;border-top:1px solid var(--border);margin:1rem 0">
+    <a class="admin-nav-link" href="index.html">
+      <i class="icon">🏠</i> Ver site
+    </a>
+  </nav>
+
+  <!-- Conteúdo dinâmico -->
+  <main class="admin-content" id="adminContent">
+    <p style="color:var(--text-muted)">Carregando…</p>
+  </main>
+</div>
+
+<!-- Modal CRUD -->
+<div class="modal" id="crudModal" role="dialog" aria-modal="true" aria-labelledby="crudModalTitle">
+  <div class="modal-box" style="max-width:520px">
+    <header class="modal-head">
+      <h3 id="crudModalTitle">Formulário</h3>
+      <button class="modal-close" id="crudModalClose">✕</button>
+    </header>
+    <div class="modal-body" id="crudModalBody"></div>
+  </div>
+</div>
+
+  <script src="assets/js/core.js"></script>
+  <script src="assets/js/search.js"></script>
+  <script src="assets/js/admin.js"></script>
+
+</body>
+</html>
