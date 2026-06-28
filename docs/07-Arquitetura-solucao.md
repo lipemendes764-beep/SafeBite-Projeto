@@ -10,47 +10,133 @@ Definição de como o software é estruturado em termos dos componentes que faze
 
 Esta seção apresenta as funcionalidades da solução.
 
-##### Funcionalidade 1 - Cadastro de contatos ⚠️ EXEMPLO ⚠️
+##### Funcionalidade 1 - Cadastro de restaurante
 
-Permite a inclusão, leitura, alteração e exclusão de contatos para o sistema
+Permite a inclusão, leitura, alteração e exclusão de novos itens ao cardapio do restaurante para o sistema
 
-* **Estrutura de dados:** [Contatos](#estrutura-de-dados---contatos)
+* **Estrutura de dados:** 
 * **Instruções de acesso:**
-  * Abra o site e efetue o login;
+  * Abra o site e efetue o login como "admin";
   * Acesse o menu principal e escolha a opção "Cadastros";
-  * Em seguida, escolha a opção "Contatos".
+  * Em seguida, escolha a opção "restaurantes".
 * **Tela da funcionalidade**:
 
-![Tela de funcionalidade](images/exemplo-funcionalidade.png)
+![alt text](cadastrorest-1.png)
 
-> ⚠️ **APAGUE ESTA PARTE ANTES DE ENTREGAR SEU TRABALHO**
->
-> Apresente cada uma das funcionalidades que a aplicação fornece tanto para os usuários, quanto aos administradores da solução.
->
-> Inclua, para cada funcionalidade, itens como: (1) títulos e descrição da funcionalidade; (2) estrutura de dados associada; (3) o detalhe sobre as instruções de acesso e uso.
+##### Funcionalidade 2 - Cadastro de pratos/cardapio
+Permite a inclusão, leitura, alteração e exclusão de novos itens ao cardapio do restaurante para o sistema
 
-### Estruturas de dados
+ **Estrutura de dados:** 
+* **Instruções de acesso:**
+  * Abra o site e efetue o login como "admin";
+  * Acesse o menu principal e escolha a opção "Cadastros";
+  * Em seguida, escolha a opção "restaurante";
 
-Descrição das estruturas de dados utilizadas na solução com exemplos no formato JSON.Info.
+![alt text](cardapio.png)
+
+##### Funcionalidade 3 - sistema de mapa
+permite localizar
+
+* **Instruções de acesso:**
+  * Abra o site e efetue o login com seu usuario;
+  * Acesse o menu principal e escolha a opção "resuarantes";
+  * Em seguida, escolha a opção "mapa";
+  * **Tela da funcionalidade**:
+
+  ![alt text](mapa.png)
+  
+##### Funcionalidade 4 - sistema para favoritar
+permite fovoritar os resurantes favoritos
+
+* **Instruções de acesso:**
+  * Abra o site e efetue o login com seu usuario;
+  * Acesse o perfil;
+  * Em seguida, escolha a opção "favorito";
+  * **Tela da funcionalidade**:
+
+ ![alt text](favorito.png)
+ ##### Funcionalidade 5 - sistema de pagamento
+permite pagar os pratos pedidos
+
+* **Instruções de acesso:**
+  * Abra o site e efetue o login com seu usuario;
+  * realize um pedido;
+  * no carrinho clique "fanalizar pedido";
+  * Em seguida, escolha a opção de pagamento favorita;
+  * **Tela da funcionalidade**:
+
+ ![alt text](pagamento.png)
 
 ##### Estrutura de dados - Contatos
 
-Contatos da aplicação
+cadastro de restaurantes
 
 ```json
-  {
-    "id": 1,
-    "nome": "Leanne Graham",
-    "cidade": "Belo Horizonte",
-    "categoria": "amigos",
-    "email": "Sincere@april.biz",
-    "telefone": "1-770-736-8031",
-    "website": "hildegard.org"
-  }
+{
+  "id": 1,
+  "nome": "",
+  "cnpj": "",
+  "tipoCozinha": "",
+  "cidade": "",
+  "uf": "",
+  "telefone": "",
+  "restricoes": []
+}
   
 ```
+##### Estrutura de dados - pratos e cardapio
 
-##### Estrutura de dados - Usuários  ⚠️ EXEMPLO ⚠️
+cadastro de pratos e cardapio
+```json
+{
+  "id": 1,
+  "nome": "",
+  "restaurante": "",
+  "descricao": "",
+  "preco": 0.00,
+  "alergenicos": "",
+  "restricoes": []
+}
+```
+##### Estrutura de dados - mapa
+sistema de mapa
+```json
+{
+  "id": 1,
+  "nome": "",
+  "categoria": "",
+  "nota": 0,
+  "distanciaKm": 0,
+  "faixaPreco": "",
+  "latitude": 0,
+  "longitude": 0,
+  "restricoes": []
+}
+```
+
+##### Estrutura de dados - pagamento
+```json
+{
+  "pagamento": {
+    "idPedido": 1,
+    "cliente": "",
+    "prato": "",
+    "quantidade": 1,
+    "subtotal": 0.00,
+    "taxaServico": 0.00,
+    "total": 0.00,
+    "metodo": "",
+    "status": "Pendente",
+    "pix": {
+      "chave": "",
+      "qrCode": ""
+    }
+  }
+}
+```
+
+
+##### Estrutura de dados - Usuários  
 
 Registro dos usuários do sistema utilizados para login e para o perfil do sistema.
 
@@ -93,9 +179,7 @@ Esta seção apresenta os módulos e APIs utilizados na solução.
 * jQuery - [http://www.jquery.com/](http://www.jquery.com/) ⚠️ EXEMPLO ⚠️
 * Bootstrap 4 - [http://getbootstrap.com/](http://getbootstrap.com/) ⚠️ EXEMPLO ⚠️
 
-> ⚠️ **APAGUE ESTA PARTE ANTES DE ENTREGAR SEU TRABALHO**
->
-> Apresente os módulos e APIs utilizados no desenvolvimento da solução. Inclua itens como: (1) frameworks, bibliotecas, módulos, etc. utilizados no desenvolvimento da solução; (2) APIs utilizadas para acesso a dados, serviços, etc.
+
 
 
 ## Hospedagem
@@ -107,3 +191,4 @@ Explique como a hospedagem e o lançamento da plataforma foram realizados.
 > - [Programação colaborativa com Repl.it](https://repl.it/)
 > - [Getting started with Heroku](https://devcenter.heroku.com/start)
 > - [Publicando seu site no Heroku](http://pythonclub.com.br/publicando-seu-hello-world-no-heroku.html)
+

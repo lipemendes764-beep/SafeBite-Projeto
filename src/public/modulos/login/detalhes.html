@@ -3,14 +3,14 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Favoritos — SafeBite</title>
-  <link rel="stylesheet" href="css/safebite.css"/>
+  <title>Detalhes do Prato — SafeBite</title>
+  <link rel="stylesheet" href="../../assets/css/safebite.css"/>
   
 </head>
 <body>
 <nav class="nav" role="navigation">
   <div class="nav-inner">
-    <a class="brand" href="index.html">
+    <a class="brand" href="Home.html">
       <span class="brand-dot">S</span><span>SafeBite</span>
     </a>
     <div class="nav-search" role="search">
@@ -21,11 +21,12 @@
       <div id="globalSearchResults" class="nav-search-results" role="listbox"></div>
     </div>
     <div class="nav-links" id="navLinks">
-      <a class="nav-link" href="index.html">Início</a>
+      <a class="nav-link" href="Home.html">Início</a>
       <a class="nav-link" href="mapa.html">🗺 Mapa</a>
-      <a class="nav-link active" href="favoritos.html" id="navFavoritos" style="display:none">❤ Favoritos</a>
+      <a class="nav-link" href="favoritos.html" id="navFavoritos" style="display:none">❤ Favoritos</a>
+      <a class="nav-link" href="perfil.html" id="navPerfil" style="display:none">👤 Perfil</a>
       <a class="nav-link" href="admin.html" id="navAdmin" style="display:none">⚙ Admin</a>
-      <a class="nav-link" href="login.html" id="navLogin">Entrar</a>
+      <a class="nav-link" href="log.html" id="navLogin">Entrar</a>
       <a class="nav-link" href="#" id="navLogout" style="display:none"
         ><span id="navUser"></span> · Sair</a>
       <a class="nav-cart" href="carrinho.html" aria-label="Carrinho">
@@ -36,16 +37,13 @@
   </div>
 </nav>
 
-<div class="wrap">
-  <div class="eyebrow">❤ Minha lista</div>
-  <h1>Meus Favoritos</h1>
-  <p class="lead">Seus pratos favoritos salvos para pedir quando quiser.</p>
-  <div id="favGrid"></div>
+<div class="wrap" style="max-width:56rem">
+  <div id="detalhesContent"></div>
 </div>
 
-  <script src="js/core.js"></script>
-  <script src="js/search.js"></script>
-  <script src="js/favoritos.js"></script>
+  <script src="../../assets/js/core.js"></script>
+  <script src="../../assets/js/search.js"></script>
+  <script src="../../assets/js/detalhes.js"></script>
 
 </body>
 </html>

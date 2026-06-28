@@ -46,7 +46,7 @@
 
 ### Personas
 
-![Persona 1 - Clausio](images/Persona-Claudio.png)
+![Persona 1 - Claudio](images/Persona-Claudio.png)
 
 **Claudio**
 - 20 a 48 anos
