@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Início — SafeBite</title>
+  <link rel="stylesheet" href="../../assets/css/safebite.css"/>
+</head>
+<body>
+<nav class="nav" role="navigation">
+  <div class="nav-inner">
+    <a class="brand" href="index.html">
+      <span class="brand-dot">S</span><span>SafeBite</span>
+    </a>
+    <div class="nav-search" role="search">
+      <i class="nav-search-icon" aria-hidden="true">🔎</i>
+      <input id="globalSearch" class="nav-search-input" type="search"
+        placeholder="Buscar restaurantes ou pratos…"
+        autocomplete="off" aria-label="Buscar" aria-controls="globalSearchResults" />
+      <div id="globalSearchResults" class="nav-search-results" role="listbox"></div>
+    </div>
+    <div class="nav-links" id="navLinks">
+      <a class="nav-link active" href="index.html">Início</a>
+      <a class="nav-link" href="favoritos.html" id="navFavoritos" style="display:none">❤ Favoritos</a>
+      <a class="nav-link" href="perfil.html" id="navPerfil" style="display:none">👤 Perfil</a>
+      <a class="nav-link" href="admin.html" id="navAdmin" style="display:none">⚙ Admin</a>
+      <a class="nav-link" href="login.html" id="navLogin">Entrar</a>
+      <a class="nav-link" href="#" id="navLogout" style="display:none">
+        <span id="navUser"></span> · Sair
+      </a>
+      <a class="nav-cart" href="carrinho.html" aria-label="Carrinho">
+        🛒 <span class="nav-cart-count" id="navCartCount" style="display:none">0</span>
+      </a>
+    </div>
+    <button class="nav-hamburger" id="hamburger" aria-label="Menu">☰</button>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-inner">
+    <span class="eyebrow">🌿 Coma com segurança</span>
+    <h1>Delivery feito para <span class="accent">suas restrições</span></h1>
+    <p class="lead">Restaurantes parceiros que respeitam suas alergias e dietas. Encontre o prato certo, no lugar certo.</p>
+    <form class="hero-search" id="heroSearchForm" onsubmit="heroSearch(event)">
+      <input id="heroQ" type="search" placeholder="Buscar restaurante ou prato…" autocomplete="off" />
+      <button type="submit">Buscar</button>
+    </form>
+    <div class="stats" id="stats"></div>
+  </div>
+</header>
+
+<section class="section" id="destaques">
+  <div class="section-head">
+    <div>
+      <h2>Em destaque</h2>
+      <p>Restaurantes selecionados para você</p>
+    </div>
+  </div>
+  <div class="carousel" id="carousel">
+    <div class="carousel-track" id="carouselTrack"></div>
+    <button class="carousel-btn prev" id="carPrev" aria-label="Anterior">‹</button>
+    <button class="carousel-btn next" id="carNext" aria-label="Próximo">›</button>
+  </div>
+  <div class="carousel-dots" id="carDots"></div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <div>
+      <h2>Restaurantes parceiros</h2>
+      <p>Escolha um restaurante e explore o cardápio</p>
+    </div>
+    <span class="badge" id="restCount">0 restaurantes</span>
+  </div>
+
+  <div style="display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:1.5rem;align-items:center">
+    <div class="search" style="flex:1;min-width:200px;max-width:360px;margin:0">
+      <input id="restQ" type="search" placeholder="Buscar por nome ou tipo de cozinha…" aria-label="Filtrar restaurantes" />
+    </div>
+    <div id="restChips" class="chips"></div>
+  </div>
+
+  <div id="restGrid" class="cards"></div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <h2>Pratos populares</h2>
+    <span class="badge" id="dishCount"></span>
+  </div>
+  <div style="display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:1.5rem;align-items:center">
+    <div class="search" style="flex:1;min-width:200px;max-width:360px;margin:0">
+      <input id="dishQ" type="search" placeholder="Buscar prato…" aria-label="Filtrar pratos" />
+    </div>
+  </div>
+  <div id="dishGrid" class="cards"></div>
+</section>
+
+<section class="section">
+  <div class="section-head"><h2>Como funciona</h2></div>
+  <div class="how">
+    <div class="step"><div class="step-num">1</div><h3>Crie sua conta</h3><p>Cadastre-se e informe suas restrições alimentares para uma experiência personalizada.</p></div>
+    <div class="step"><div class="step-num">2</div><h3>Explore restaurantes</h3><p>Navegue pelo catálogo e filtre por restrições, tipo de cozinha ou localização.</p></div>
+    <div class="step"><div class="step-num">3</div><h3>Veja o cardápio</h3><p>Cada prato exibe restrições atendidas, alergênicos e informações nutricionais.</p></div>
+    <div class="step"><div class="step-num">4</div><h3>Peça com confiança</h3><p>Adicione ao carrinho e finalize o pedido sabendo exatamente o que vai comer.</p></div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-col">
+      <a class="brand" href="index.html" style="display:inline-flex">
+        <span class="brand-dot">S</span><span>SafeBite</span>
+      </a>
+      <p class="muted" style="margin-top:.75rem;font-size:.88rem;line-height:1.5">
+        Plataforma de delivery focada em restrições alimentares.<br>
+        Coma com segurança, descubra com confiança.
+      </p>
+    </div>
+    <div class="footer-col">
+      <h4>Plataforma</h4>
+      <a href="index.html">Início</a>
+      <a href="favoritos.html">Favoritos</a>
+      <a href="carrinho.html">Carrinho</a>
+    </div>
+    <div class="footer-col">
+      <h4>Conta</h4>
+      <a href="login.html">Entrar</a>
+      <a href="cadastro-usuario.html">Criar conta</a>
+    </div>
+    <div class="footer-col">
+      <h4>Contato</h4>
+      <p class="muted" style="font-size:.88rem">contato@safebite.app</p>
+      <p class="muted" style="font-size:.88rem">São Paulo · Brasil</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="muted" style="font-size:.82rem">© 2025 SafeBite. Todos os direitos reservados.</p>
+    <p class="muted" style="font-size:.82rem">Projeto educacional — dados fictícios</p>
+  </div>
+</footer>
+
+<div class="modal" id="dishModal" role="dialog" aria-modal="true" aria-labelledby="dishModalTitle">
+  <div class="modal-box">
+    <header class="modal-head">
+      <h3 id="dishModalTitle">Detalhes</h3>
+      <button class="modal-close" id="dishModalClose">✕</button>
+    </header>
+    <div class="modal-body" id="dishModalBody"></div>
+  </div>
+</div>
+
+  <script src="../../assets/js/core.js"></script>
+  <script src="../../assets/js/search.js"></script>
+  <script src="../../assets/js/index.js"></script>
+
+</body>
+</html>
