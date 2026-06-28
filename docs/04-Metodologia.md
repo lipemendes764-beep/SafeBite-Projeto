@@ -29,16 +29,7 @@ O fluxo segue o modelo GitHub Flow, com commits frequentes e revisão por pull r
 
 ### Processo
 
-O projeto utiliza metodologia Scrum com sprints curtos e acompanhamento via GitHub Projects.
-
-O quadro Kanban é dividido em:
-- To Do
-- In Progress
-- Done
-
-Isso garante acompanhamento contínuo do progresso.
-
----
+![Quadro kanban](images/Safe-Bite%20_%20Trello.pdf)
 
 ## Ferramentas
 
