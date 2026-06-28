@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Criar Conta — SafeBite</title>
+  <link rel="stylesheet" href="assets/css/safebite.css"/>
+  
+</head>
+<body style="background:var(--bg)">
+<div class="auth-wrap">
+  <div class="auth-box" style="max-width:460px">
+    <a class="auth-logo" href="index.html">
+      <span class="brand-dot">S</span> SafeBite
+    </a>
+    <h1 class="auth-title">Criar conta</h1>
+    <p class="auth-sub">Cadastre-se gratuitamente e comece a explorar.</p>
+    <form id="regForm" novalidate>
+      <div class="field">
+        <label>Nome completo <span class="req">*</span></label>
+        <input class="input" id="regNome" type="text" autocomplete="name" required />
+      </div>
+      <div class="field">
+        <label>E-mail <span class="req">*</span></label>
+        <input class="input" id="regEmail" type="email" autocomplete="email" required />
+      </div>
+      <div class="row2">
+        <div class="field">
+          <label>Login <span class="req">*</span></label>
+          <input class="input" id="regLogin" type="text" autocomplete="username" required />
+        </div>
+        <div class="field">
+          <label>Senha <span class="req">*</span></label>
+          <input class="input" id="regSenha" type="password" autocomplete="new-password" required />
+        </div>
+      </div>
+      <div id="regMsg" class="msg" style="display:none"></div>
+      <button class="submit" type="submit">Criar conta</button>
+    </form>
+    <p class="auth-footer">Já tem conta? <a href="login.html">Entrar</a></p>
+  </div>
+</div>
+  <script src="assets/js/core.js"></script>
+  <script src="assets/js/cadastro-usuario.js"></script>
+
+</body>
+</html>

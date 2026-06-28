@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Mapa de Restaurantes — SafeBite</title>
+  <link rel="stylesheet" href="assets/css/safebite.css"/>
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+
+  <style>
+    /* ── Layout mapa ─────────────────────────────────────────── */
+    .mapa-layout {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      height: calc(100vh - 60px);   /* full height abaixo da nav */
+      overflow: hidden;
+    }
+    @media (max-width: 768px) {
+      .mapa-layout {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 1fr;
+        height: auto;
+      }
+    }
+
+    /* ── Painel lateral ──────────────────────────────────────── */
+    .mapa-sidebar {
+      background: var(--surface-solid);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .mapa-sidebar-head {
+      padding: 1.25rem 1.25rem .75rem;
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+
+    .mapa-sidebar-head h2 {
+      margin: 0 0 .1rem;
+      font-size: 1.1rem;
+    }
+
+    .mapa-sidebar-head p {
+      margin: 0 0 .85rem;
+      color: var(--text-muted);
+      font-size: .82rem;
+    }
+
+    /* Busca inline no sidebar */
+    .mapa-search {
+      position: relative;
+    }
+    .mapa-search input {
+      width: 100%;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: var(--radius);
+      padding: .55rem .9rem .55rem 2.2rem;
+      color: var(--text);
+      font: inherit;
+      font-size: .88rem;
+      outline: none;
+      transition: border-color .15s;
+    }
+    .mapa-search input:focus { border-color: rgba(52,211,153,.5); }
+    .mapa-search input::placeholder { color: var(--text-faint); }
+    .mapa-search-icon {
+      position: absolute; left: .75rem; top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-faint); font-style: normal; font-size: .9rem;
+      pointer-events: none;
+    }
+
+    /* Filtros de restrição */
+    .mapa-filters {
+      padding: .75rem 1.25rem;
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+    .mapa-filters-label {
+      font-size: .72rem; text-transform: uppercase;
+      letter-spacing: .08em; color: var(--text-faint); margin-bottom: .5rem;
+    }
+    .mapa-chips {
+      display: flex; flex-wrap: wrap; gap: .35rem;
+    }
+    .mapa-chip {
+      font-size: .75rem; padding: .2rem .6rem;
+      border-radius: 999px; border: 1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.03); color: var(--text-muted);
+      cursor: pointer; transition: all .15s; user-select: none;
+    }
+    .mapa-chip:hover { border-color: rgba(255,255,255,.16); color: var(--text); }
+    .mapa-chip.active {
+      background: var(--green); border-color: var(--green);
+      color: var(--bg); font-weight: 500;
+    }
+
+    /* Lista de restaurantes */
+    .mapa-list {
+      overflow-y: auto;
+      flex: 1;
+      padding: .75rem .75rem;
+    }
+
+    .mapa-rest-item {
+      display: flex; gap: .85rem; align-items: flex-start;
+      padding: .85rem .75rem;
+      border-radius: var(--radius);
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: all .15s;
+      margin-bottom: .35rem;
+    }
+    .mapa-rest-item:hover {
+      background: rgba(255,255,255,.04);
+      border-color: var(--border);
+    }
+    .mapa-rest-item.active {
+      background: rgba(16,185,129,.08);
+      border-color: rgba(16,185,129,.25);
+    }
+
+    .mapa-rest-thumb {
+      width: 52px; height: 52px; border-radius: .5rem;
+      object-fit: cover; flex-shrink: 0;
+      background: rgba(16,185,129,.1);
+      display: grid; place-items: center; font-size: 1.3rem;
+    }
+
+    .mapa-rest-body { flex: 1; min-width: 0; }
+    .mapa-rest-name {
+      font-size: .92rem; font-weight: 600; color: var(--text);
+      margin: 0 0 .15rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .mapa-rest-cuisine { color: var(--text-muted); font-size: .78rem; margin: 0 0 .2rem; }
+    .mapa-rest-addr    { color: var(--text-faint);  font-size: .74rem; margin: 0 0 .3rem;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .mapa-rest-meta {
+      display: flex; gap: .5rem; font-size: .75rem;
+      color: var(--text-faint); flex-wrap: wrap;
+    }
+    .mapa-rest-rating { color: #fcd34d; }
+
+    .mapa-empty {
+      text-align: center; padding: 2rem 1rem;
+      color: var(--text-muted); font-size: .88rem;
+    }
+
+    /* ── Mapa ─────────────────────────────────────────────────── */
+    #map {
+      width: 100%;
+      height: 100%;
+      min-height: 420px;
+      background: var(--bg);
+      z-index: 1;
+    }
+
+    /* Popup do Leaflet customizado */
+    .leaflet-popup-content-wrapper {
+      background: #161c18 !important;
+      border: 1px solid rgba(255,255,255,.1) !important;
+      border-radius: 12px !important;
+      box-shadow: 0 16px 40px rgba(0,0,0,.5) !important;
+      color: #fff !important;
+    }
+    .leaflet-popup-tip { background: #161c18 !important; }
+    .leaflet-popup-content { margin: 0 !important; padding: 0 !important; }
+    .leaflet-popup-close-button {
+      color: #a8a29e !important;
+      font-size: 1.1rem !important;
+      top: 10px !important; right: 10px !important;
+    }
+    .leaflet-popup-close-button:hover { color: #fff !important; }
+
+    /* Conteúdo do popup */
+    .map-popup {
+      width: 240px;
+      overflow: hidden;
+      border-radius: 12px;
+    }
+    .map-popup-img {
+      width: 100%; height: 110px; object-fit: cover;
+      display: block; border-radius: 10px 10px 0 0;
+    }
+    .map-popup-img-placeholder {
+      width: 100%; height: 110px;
+      background: linear-gradient(135deg, rgba(16,185,129,.2), rgba(15,20,16,.9));
+      display: grid; place-items: center; font-size: 2.5rem;
+      border-radius: 10px 10px 0 0;
+    }
+    .map-popup-body { padding: .85rem 1rem 1rem; }
+    .map-popup-name {
+      font-size: 1rem; font-weight: 600; color: #fff; margin: 0 0 .15rem;
+    }
+    .map-popup-cuisine { font-size: .8rem; color: #a8a29e; margin: 0 0 .3rem; }
+    .map-popup-addr    { font-size: .75rem; color: #78716c; margin: 0 0 .5rem; }
+    .map-popup-meta {
+      display: flex; gap: .6rem; font-size: .78rem;
+      color: #a8a29e; flex-wrap: wrap; margin-bottom: .65rem;
+    }
+    .map-popup-rating { color: #fcd34d; }
+    .map-popup-status {
+      font-size: .7rem; padding: .15rem .5rem; border-radius: 999px;
+      border: 1px solid; display: inline-block; margin-bottom: .55rem;
+    }
+    .map-popup-open   { color: #6ee7b7; background: rgba(16,185,129,.1); border-color: rgba(16,185,129,.25); }
+    .map-popup-closed { color: #78716c;  background: rgba(255,255,255,.04); border-color: rgba(255,255,255,.08); }
+    .map-popup-tags   { display: flex; flex-wrap: wrap; gap: .3rem; margin-bottom: .7rem; }
+    .map-popup-tag {
+      font-size: .68rem; padding: .1rem .45rem; border-radius: 999px;
+      color: #6ee7b7; background: rgba(16,185,129,.1); border: 1px solid rgba(16,185,129,.2);
+    }
+    .map-popup-btn {
+      display: block; text-align: center;
+      background: #10b981; color: #0f1410;
+      border-radius: .6rem; padding: .5rem .9rem;
+      font-size: .85rem; font-weight: 600;
+      text-decoration: none; transition: background .15s;
+    }
+    .map-popup-btn:hover { background: #34d399; }
+
+    /* Marcador customizado */
+    .custom-marker {
+      width: 36px; height: 36px; border-radius: 50% 50% 50% 0;
+      transform: rotate(-45deg);
+      background: var(--green);
+      border: 2px solid rgba(255,255,255,.3);
+      box-shadow: 0 4px 12px rgba(0,0,0,.4);
+      display: flex; align-items: center; justify-content: center;
+      transition: transform .15s;
+    }
+    .custom-marker.closed { background: #57534e; }
+    .custom-marker-inner {
+      transform: rotate(45deg);
+      font-size: .85rem; line-height: 1;
+    }
+
+    /* Legenda do mapa */
+    .map-legend {
+      background: rgba(15,20,16,.92);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: .75rem;
+      padding: .65rem .9rem;
+      font-size: .75rem;
+      color: #a8a29e;
+    }
+    .map-legend-item {
+      display: flex; align-items: center; gap: .45rem; margin-bottom: .3rem;
+    }
+    .map-legend-item:last-child { margin-bottom: 0; }
+    .map-legend-dot {
+      width: 12px; height: 12px; border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* Contador no sidebar */
+    .mapa-count {
+      font-size: .75rem; color: var(--text-faint);
+      padding: .4rem 1.25rem;
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+    .mapa-count strong { color: var(--green-light); }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="nav" role="navigation">
+  <div class="nav-inner">
+    <a class="brand" href="index.html">
+      <span class="brand-dot">S</span><span>SafeBite</span>
+    </a>
+    <div class="nav-search" role="search">
+      <i class="nav-search-icon" aria-hidden="true">🔎</i>
+      <input id="globalSearch" class="nav-search-input" type="search"
+        placeholder="Buscar restaurantes ou pratos…"
+        autocomplete="off" aria-label="Buscar" aria-controls="globalSearchResults"/>
+      <div id="globalSearchResults" class="nav-search-results" role="listbox"></div>
+    </div>
+    <div class="nav-links" id="navLinks">
+      <a class="nav-link" href="index.html">Início</a>
+      <a class="nav-link active" href="mapa.html">🗺 Mapa</a>
+      <a class="nav-link" href="favoritos.html" id="navFavoritos" style="display:none">❤ Favoritos</a>
+      <a class="nav-link" href="perfil.html"    id="navPerfil"    style="display:none">👤 Perfil</a>
+      <a class="nav-link" href="admin.html"     id="navAdmin"     style="display:none">⚙ Admin</a>
+      <a class="nav-link" href="login.html"     id="navLogin">Entrar</a>
+      <a class="nav-link" href="#" id="navLogout" style="display:none">
+        <span id="navUser"></span> · Sair
+      </a>
+      <a class="nav-cart" href="carrinho.html" aria-label="Carrinho">
+        🛒 <span class="nav-cart-count" id="navCartCount" style="display:none">0</span>
+      </a>
+    </div>
+    <button class="nav-hamburger" id="hamburger" aria-label="Menu">☰</button>
+  </div>
+</nav>
+
+<!-- Layout principal: sidebar + mapa -->
+<div class="mapa-layout">
+
+  <!-- ── Sidebar ── -->
+  <aside class="mapa-sidebar">
+
+    <div class="mapa-sidebar-head">
+      <h2>🗺 Restaurantes no mapa</h2>
+      <p>Encontre estabelecimentos perto de você</p>
+      <div class="mapa-search">
+        <i class="mapa-search-icon">🔍</i>
+        <input id="sidebarQ" type="search" placeholder="Buscar nome ou cidade…" autocomplete="off" />
+      </div>
+    </div>
+
+    <!-- Filtros rápidos de restrição -->
+    <div class="mapa-filters">
+      <p class="mapa-filters-label">Filtrar por restrição</p>
+      <div class="mapa-chips" id="mapaChips"></div>
+    </div>
+
+    <!-- Contador -->
+    <div class="mapa-count" id="mapaCount"></div>
+
+    <!-- Lista de resultados -->
+    <div class="mapa-list" id="mapaList" role="list"></div>
+
+  </aside>
+
+  <!-- ── Mapa ── -->
+  <div id="map" aria-label="Mapa de restaurantes SafeBite"></div>
+</div>
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="assets/js/core.js"></script>
+<script src="assets/js/search.js"></script>
+<script src="assets/js/mapa.js"></script>
+</body>
+</html>

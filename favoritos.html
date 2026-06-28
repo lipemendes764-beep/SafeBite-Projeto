@@ -1,75 +1,51 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SafeBite — Meus Favoritos</title>
-  <link rel="stylesheet" href="assets/css/favorito.css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lucide-static@latest/font/lucide.css" />
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Favoritos — SafeBite</title>
+  <link rel="stylesheet" href="css/safebite.css"/>
+  
 </head>
 <body>
-  <header class="topbar">
-    <div class="topbar-inner">
-      <div class="brand">
-        <div class="brand-icon"><i class="icon-leaf"></i></div>
-        <span>SafeBite</span>
-      </div>
-      <nav class="nav" id="nav"></nav>
-      <div class="search">
-        <i class="icon-search"></i>
-        <input type="text" placeholder="Buscar favorito..." />
-      </div>
+<nav class="nav" role="navigation">
+  <div class="nav-inner">
+    <a class="brand" href="index.html">
+      <span class="brand-dot">S</span><span>SafeBite</span>
+    </a>
+    <div class="nav-search" role="search">
+      <i class="nav-search-icon" aria-hidden="true">🔎</i>
+      <input id="globalSearch" class="nav-search-input" type="search"
+        placeholder="Buscar restaurantes ou pratos…"
+        autocomplete="off" aria-label="Buscar" aria-controls="globalSearchResults" />
+      <div id="globalSearchResults" class="nav-search-results" role="listbox"></div>
     </div>
-  </header>
-
-  <main class="container">
-    <div class="page-header">
-      <div class="heart-badge"><i class="icon-heart"></i></div>
-      <div>
-        <h1>Meus favoritos</h1>
-        <p>Nada salvo ainda — toque no coração nos cards para começar.</p>
-      </div>
+    <div class="nav-links" id="navLinks">
+      <a class="nav-link" href="index.html">Início</a>
+      <a class="nav-link" href="mapa.html">🗺 Mapa</a>
+      <a class="nav-link active" href="favoritos.html" id="navFavoritos" style="display:none">❤ Favoritos</a>
+      <a class="nav-link" href="admin.html" id="navAdmin" style="display:none">⚙ Admin</a>
+      <a class="nav-link" href="login.html" id="navLogin">Entrar</a>
+      <a class="nav-link" href="#" id="navLogout" style="display:none"
+        ><span id="navUser"></span> · Sair</a>
+      <a class="nav-cart" href="carrinho.html" aria-label="Carrinho">
+        🛒 <span class="nav-cart-count" id="navCartCount" style="display:none">0</span>
+      </a>
     </div>
+    <button class="nav-hamburger" id="hamburger" aria-label="Menu">☰</button>
+  </div>
+</nav>
 
-    <section class="favorite-section" data-section="foods">
-      <div class="section-header">
-        <i class="icon-utensils-crossed section-icon"></i>
-        <h2>Comidas favoritas</h2>
-        <span class="counter" id="count-foods">0</span>
-      </div>
-      <div class="section-body">
-        <div class="empty" id="empty-foods">
-          <i class="icon-heart"></i>
-          <p>Você ainda não salvou nenhuma receita. Clique no coração para favoritar!</p>
-        </div>
-        <div class="grid" id="grid-foods"></div>
-        <div class="add-row">
-          <input id="input-foods" type="text" maxlength="40" placeholder="Nome da receita..." />
-          <button class="btn-primary" data-add="foods">Adicionar</button>
-        </div>
-      </div>
-    </section>
+<div class="wrap">
+  <div class="eyebrow">❤ Minha lista</div>
+  <h1>Meus Favoritos</h1>
+  <p class="lead">Seus pratos favoritos salvos para pedir quando quiser.</p>
+  <div id="favGrid"></div>
+</div>
 
-    <section class="favorite-section" data-section="restaurants">
-      <div class="section-header">
-        <i class="icon-store section-icon"></i>
-        <h2>Restaurantes favoritos</h2>
-        <span class="counter" id="count-restaurants">0</span>
-      </div>
-      <div class="section-body">
-        <div class="empty" id="empty-restaurants">
-          <i class="icon-store"></i>
-          <p>Nenhum restaurante favoritado. Toque no coração nos cards de restaurantes para salvar.</p>
-        </div>
-        <div class="grid" id="grid-restaurants"></div>
-        <div class="add-row">
-          <input id="input-restaurants" type="text" maxlength="40" placeholder="Nome do restaurante..." />
-          <button class="btn-primary" data-add="restaurants">Adicionar</button>
-        </div>
-      </div>
-    </section>
-  </main>
+  <script src="js/core.js"></script>
+  <script src="js/search.js"></script>
+  <script src="js/favoritos.js"></script>
 
-  <script src="assets/js/favorito.js"></script>
 </body>
 </html>

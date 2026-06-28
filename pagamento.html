@@ -1,130 +1,363 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>SafeBite — Pagamento</title>
-<link rel="stylesheet" href="assets/css/pagamento.css">
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Pagamento — SafeBite</title>
+  <link rel="stylesheet" href="assets/css/safebite.css"/>
+  <style>
+    /* ── Pagamento específico ──────────────────────────────────── */
+
+    /* Steps */
+    .steps {
+      display: flex; align-items: center; gap: .5rem;
+      margin-bottom: 2.5rem; flex-wrap: wrap;
+    }
+    .step {
+      display: flex; align-items: center; gap: .5rem;
+      color: var(--text-faint); font-size: .88rem;
+    }
+    .step .num {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+      display: grid; place-items: center; font-size: .85rem; flex-shrink: 0;
+    }
+    .step.done .num  { background: var(--green); color: var(--bg); border-color: var(--green); }
+    .step.active     { color: var(--text); }
+    .step.active .num { background: rgba(16,185,129,.12); color: var(--green-light); border-color: rgba(16,185,129,.4); }
+    .step-sep { flex: 1; height: 1px; background: rgba(255,255,255,.06); min-width: 24px; max-width: 56px; }
+
+    /* Layout grid */
+    .pay-grid {
+      display: grid;
+      grid-template-columns: 1fr 22rem;
+      gap: 1.5rem;
+      align-items: start;
+    }
+    @media (max-width: 900px) { .pay-grid { grid-template-columns: 1fr; } }
+
+    /* Cartão de seção */
+    .pay-card {
+      background: var(--surface);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .pay-card h2 {
+      margin: 0 0 1.1rem; font-size: 1.05rem;
+      display: flex; align-items: center; gap: .65rem;
+    }
+    .pay-card-ico {
+      width: 34px; height: 34px; border-radius: .6rem;
+      background: rgba(16,185,129,.1);
+      border: 1px solid rgba(16,185,129,.25);
+      display: grid; place-items: center;
+      color: var(--green-light); font-size: 1rem; flex-shrink: 0;
+    }
+
+    /* Endereço */
+    .address-box {
+      display: flex; justify-content: space-between;
+      align-items: flex-start; gap: 1rem;
+      padding: .9rem 1rem;
+      background: rgba(16,185,129,.06);
+      border: 1px solid rgba(16,185,129,.2);
+      border-radius: var(--radius);
+    }
+    .address-name { color: var(--text); margin: 0 0 .15rem; font-weight: 500; }
+    .address-meta { color: var(--text-muted); font-size: .86rem; margin: .1rem 0; }
+    .address-edit {
+      color: var(--green-light); font-size: .82rem;
+      padding: .35rem .75rem; border-radius: .5rem;
+      border: 1px solid rgba(16,185,129,.25);
+      transition: .15s; flex-shrink: 0;
+    }
+    .address-edit:hover { background: rgba(16,185,129,.1); }
+
+    /* Métodos de pagamento */
+    .methods {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: .65rem; margin-bottom: 1.25rem;
+    }
+    .method {
+      position: relative;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: .4rem; padding: 1rem .75rem;
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: var(--radius); cursor: pointer;
+      transition: all .15s;
+    }
+    .method:hover {
+      border-color: rgba(255,255,255,.16);
+      background: rgba(255,255,255,.05);
+    }
+    .method.active {
+      background: rgba(16,185,129,.08);
+      border-color: var(--green);
+      box-shadow: 0 0 0 3px rgba(16,185,129,.12);
+    }
+    .method-ico   { font-size: 1.6rem; }
+    .method-label { font-size: .88rem; color: var(--text-nav); }
+    .method.active .method-label { color: var(--text); }
+    .method-check {
+      position: absolute; top: .45rem; right: .45rem;
+      width: 18px; height: 18px; border-radius: 50%;
+      background: var(--green); color: var(--bg);
+      display: none; align-items: center; justify-content: center;
+      font-size: .68rem; font-weight: 700;
+    }
+    .method.active .method-check { display: grid; }
+
+    /* Painel PIX */
+    .pane-pix {
+      display: flex; flex-direction: column;
+      align-items: center; text-align: center; padding: .5rem 0 .25rem;
+    }
+    .pix-qr {
+      width: 176px; height: 176px;
+      background: #fff; border-radius: .75rem;
+      display: grid; place-items: center;
+      margin-bottom: .9rem; overflow: hidden;
+    }
+    .pix-qr svg { width: 100%; height: 100%; }
+    .pix-code {
+      background: rgba(255,255,255,.04);
+      border: 1px dashed rgba(255,255,255,.14);
+      border-radius: .6rem; padding: .65rem .9rem;
+      font-family: ui-monospace, Menlo, monospace;
+      font-size: .76rem; color: var(--text-muted);
+      margin-bottom: .75rem; word-break: break-all;
+      max-width: 340px;
+    }
+    .copy-btn {
+      padding: .52rem 1.1rem;
+      background: rgba(16,185,129,.1);
+      border: 1px solid rgba(16,185,129,.3);
+      color: var(--green-light); border-radius: .6rem;
+      font-size: .88rem; cursor: pointer; transition: .15s;
+    }
+    .copy-btn:hover { background: rgba(16,185,129,.18); }
+    .pix-discount {
+      margin-top: .75rem; font-size: .82rem;
+      color: var(--green-xlight);
+      background: rgba(16,185,129,.08);
+      border: 1px solid rgba(16,185,129,.18);
+      border-radius: .5rem; padding: .35rem .75rem;
+    }
+
+    /* Painel Cartão */
+    .pane-card { padding: .25rem 0; }
+    .card-fields { display: grid; gap: .85rem; }
+    .row2c { display: grid; grid-template-columns: 1fr 1fr; gap: .7rem; }
+    .row3c { display: grid; grid-template-columns: 1fr 1fr 90px; gap: .7rem; }
+    @media (max-width: 500px) {
+      .row2c, .row3c { grid-template-columns: 1fr; }
+    }
+
+    /* Painel Dinheiro */
+    .pane-cash { padding: .5rem 0; }
+    .pane-cash p {
+      color: var(--text-muted); font-size: .9rem;
+      margin: 0 0 .85rem; line-height: 1.5;
+    }
+
+    /* Observações */
+    .obs-area {
+      resize: none; min-height: 80px;
+    }
+
+    /* Resumo lateral */
+    .pay-summary {
+      position: sticky; top: 5.5rem;
+    }
+    .summary-item {
+      display: flex; justify-content: space-between;
+      align-items: flex-start; gap: .75rem;
+      padding: .65rem 0;
+      border-bottom: 1px solid rgba(255,255,255,.05);
+    }
+    .summary-item:last-of-type { border-bottom: none; }
+    .summary-item-name { color: var(--text); margin: 0; font-size: .9rem; }
+    .summary-item-rest { color: var(--text-muted); font-size: .78rem; margin: .1rem 0 0; }
+    .summary-item-qty  { color: var(--text-faint); font-size: .78rem; margin: .1rem 0 0; }
+    .summary-item-price { color: var(--text); white-space: nowrap; font-size: .9rem; }
+
+    .summary-totals {
+      margin-top: 1rem; padding-top: 1rem;
+      border-top: 1px solid rgba(255,255,255,.08);
+    }
+    .summary-line {
+      display: flex; justify-content: space-between;
+      padding: .35rem 0; color: var(--text-muted); font-size: .88rem;
+    }
+    .summary-line.final {
+      padding-top: .85rem; margin-top: .4rem;
+      border-top: 1px dashed rgba(255,255,255,.1);
+      color: var(--text); font-size: 1.08rem; font-weight: 500;
+    }
+    .summary-line.final .val { color: var(--green-light); }
+    .val-discount { color: var(--green-xlight) !important; }
+
+    /* Botão pagar */
+    .pay-btn {
+      width: 100%; background: var(--green); color: var(--bg);
+      padding: 1rem; border-radius: .85rem; font-weight: 500;
+      font-size: 1rem; border: none; cursor: pointer;
+      transition: all .15s; margin-top: 1rem;
+      display: flex; align-items: center; justify-content: center; gap: .5rem;
+    }
+    .pay-btn:hover  { background: var(--green-light); box-shadow: var(--shadow-green); }
+    .pay-btn:disabled { opacity: .5; cursor: not-allowed; }
+
+    .pay-note {
+      color: var(--text-faint); font-size: .76rem;
+      text-align: center; margin-top: .85rem; line-height: 1.5;
+    }
+
+    /* Modal de sucesso */
+    .success-modal {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,.72);
+      backdrop-filter: blur(6px);
+      display: none; align-items: center; justify-content: center;
+      z-index: 200; padding: 1.5rem;
+    }
+    .success-modal.open { display: flex; }
+    .success-box {
+      background: #161c18;
+      border: 1px solid rgba(16,185,129,.3);
+      border-radius: 1.25rem;
+      padding: 2.5rem 2rem;
+      max-width: 26rem; width: 100%;
+      text-align: center;
+    }
+    .success-ico {
+      width: 70px; height: 70px; border-radius: 50%;
+      background: rgba(16,185,129,.12);
+      border: 2px solid var(--green-light);
+      color: var(--green-light);
+      display: grid; place-items: center;
+      font-size: 2.2rem; margin: 0 auto 1.1rem;
+      animation: pop .35s ease;
+    }
+    @keyframes pop {
+      from { transform: scale(.5); opacity: 0; }
+      to   { transform: scale(1);  opacity: 1; }
+    }
+    .success-box h3 { margin: 0 0 .5rem; font-size: 1.35rem; }
+    .success-box p  { margin: 0 0 .5rem; color: var(--text-muted); font-size: .92rem; }
+    .success-method {
+      font-size: .82rem; color: var(--green-xlight);
+      background: rgba(16,185,129,.08);
+      border: 1px solid rgba(16,185,129,.2);
+      border-radius: .5rem; padding: .35rem .75rem;
+      display: inline-block; margin: .5rem 0 1.5rem;
+    }
+    .success-actions { display: flex; flex-direction: column; gap: .6rem; }
+    .success-btn {
+      padding: .8rem 1.2rem; border-radius: .7rem;
+      font-size: .92rem; cursor: pointer; transition: .15s;
+      border: none; font: inherit;
+    }
+    .success-btn.primary { background: var(--green); color: var(--bg); }
+    .success-btn.primary:hover { background: var(--green-light); }
+    .success-btn.ghost  {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.1);
+      color: var(--text);
+    }
+    .success-btn.ghost:hover { background: rgba(255,255,255,.08); }
+
+    /* Carrinho vazio */
+    .empty-pay {
+      text-align: center; padding: 4rem 2rem;
+    }
+    .empty-pay .ico { font-size: 3rem; margin-bottom: .75rem; }
+    .empty-pay h2   { margin: 0 0 .5rem; }
+    .empty-pay p    { color: var(--text-muted); margin: 0 0 1.5rem; }
+  </style>
 </head>
 <body>
-<nav class="nav">
-<div class="nav-inner">
-<a class="brand" href="index.html">
-<span class="brand-dot">S</span>
-SafeBite
-</a>
-<div class="nav-links">
-<a class="nav-link" href="HomePage.html">Início</a>
-<a class="nav-link" href="restaurantes.html">Restaurantes</a>
-<a class="nav-link" href="pesquisa-alimentos.html">Alimentos</a>
-<a class="nav-link active" href="pagamento.html">Pagamento</a>
-<a class="nav-link" href="perfil.html">Perfil</a>
-</div>
-</div>
+
+<!-- Navbar -->
+<nav class="nav" role="navigation">
+  <div class="nav-inner">
+    <a class="brand" href="index.html">
+      <span class="brand-dot">S</span><span>SafeBite</span>
+    </a>
+    <div class="nav-search" role="search">
+      <i class="nav-search-icon" aria-hidden="true">🔎</i>
+      <input id="globalSearch" class="nav-search-input" type="search"
+        placeholder="Buscar restaurantes ou pratos…"
+        autocomplete="off" aria-label="Buscar" aria-controls="globalSearchResults"/>
+      <div id="globalSearchResults" class="nav-search-results" role="listbox"></div>
+    </div>
+    <div class="nav-links" id="navLinks">
+      <a class="nav-link" href="index.html">Início</a>
+      <a class="nav-link" href="mapa.html">🗺 Mapa</a>
+      <a class="nav-link" href="favoritos.html"  id="navFavoritos" style="display:none">❤ Favoritos</a>
+      <a class="nav-link" href="perfil.html"     id="navPerfil"    style="display:none">👤 Perfil</a>
+      <a class="nav-link" href="admin.html"      id="navAdmin"     style="display:none">⚙ Admin</a>
+      <a class="nav-link" href="login.html"      id="navLogin">Entrar</a>
+      <a class="nav-link" href="#" id="navLogout" style="display:none">
+        <span id="navUser"></span> · Sair
+      </a>
+      <a class="nav-cart" href="carrinho.html" aria-label="Carrinho">
+        🛒 <span class="nav-cart-count" id="navCartCount" style="display:none">0</span>
+      </a>
+    </div>
+    <button class="nav-hamburger" id="hamburger" aria-label="Menu">☰</button>
+  </div>
 </nav>
+
 <div class="wrap">
-<div class="glow"></div>
-<div class="eyebrow">⌬ Checkout</div>
-<h1>Finalizar pedido</h1>
-<p class="lead">Confirme o endereço, escolha a forma de pagamento e revise o pedido.</p>
-<div class="steps">
-<div class="step done">
-<div class="num">✓</div>
-Carrinho
+  <div class="glow" aria-hidden="true"></div>
+  <div class="eyebrow">⌬ Checkout</div>
+  <h1>Finalizar pedido</h1>
+  <p class="lead">Confirme o endereço, escolha o pagamento e revise o pedido.</p>
+
+  <!-- Steps -->
+  <nav class="steps" aria-label="Etapas do checkout">
+    <div class="step done"><div class="num" aria-hidden="true">✓</div> Carrinho</div>
+    <div class="step-sep"></div>
+    <div class="step active"><div class="num" aria-hidden="true">2</div> Pagamento</div>
+    <div class="step-sep"></div>
+    <div class="step"><div class="num" aria-hidden="true">3</div> Confirmação</div>
+  </nav>
+
+  <!-- Conteúdo dinâmico (grid ou estado vazio) -->
+  <div id="pageContent"></div>
 </div>
-<div class="step-sep"></div>
-<div class="step active">
-<div class="num">2</div>
-Pagamento
+
+<!-- Modal de sucesso -->
+<div class="success-modal" id="successModal" role="dialog" aria-modal="true" aria-labelledby="successTitle">
+  <div class="success-box">
+    <div class="success-ico" aria-hidden="true">✓</div>
+    <h3 id="successTitle">Pedido confirmado!</h3>
+    <p id="successTotal"></p>
+    <span class="success-method" id="successMethod"></span>
+    <p class="pay-note" style="margin-top:.35rem">
+      🔒 Pagamento simulado. Nenhum dado financeiro real foi enviado.
+    </p>
+    <div class="success-actions">
+      <button class="success-btn primary" onclick="location.href='index.html'">
+        🏠 Voltar à página inicial
+      </button>
+      <button class="success-btn ghost" onclick="location.href='favoritos.html'">
+        ❤ Ver meus favoritos
+      </button>
+    </div>
+  </div>
 </div>
-<div class="step-sep"></div>
-<div class="step">
-<div class="num">3</div>
-Confirmação
-</div>
-</div>
-<form class="grid" id="form">
-<div>
-<div class="card">
-<h2>
-<span class="ico">📍</span>
-Endereço de entrega
-</h2>
-<div class="address-row">
-<div class="address-info" id="address"></div>
-<a href="perfil.html" class="edit">Alterar</a>
-</div>
-</div>
-<div class="card">
-<h2>
-<span class="ico">💳</span>
-Forma de pagamento
-</h2>
-<div class="methods" id="methods">
-<button type="button" class="method active" data-method="pix">
-<div class="method-ico">⚡</div>
-<div class="method-label">PIX</div>
-<div class="method-check">✓</div>
-</button>
-<button type="button" class="method" data-method="credito">
-<div class="method-ico">💳</div>
-<div class="method-label">Crédito</div>
-<div class="method-check">✓</div>
-</button>
-<button type="button" class="method" data-method="debito">
-<div class="method-ico">🏦</div>
-<div class="method-label">Débito</div>
-<div class="method-check">✓</div>
-</button>
-<button type="button" class="method" data-method="dinheiro">
-<div class="method-ico">💵</div>
-<div class="method-label">Dinheiro</div>
-<div class="method-check">✓</div>
-</button>
-</div>
-</div>
-<div class="card">
-<h2>
-<span class="ico">📝</span>
-Observações
-</h2>
-<textarea class="input" name="notes" rows="3" placeholder="Avise sobre alergias, ponto de referência..." style="resize:none"></textarea>
-</div>
-</div>
-<aside class="summary">
-<div class="card">
-<h2>
-<span class="ico">🧾</span>
-Resumo do pedido
-</h2>
-<div id="items"></div>
-<div class="totals">
-<div class="total-line">
-<span>Subtotal</span>
-<span id="subtotal">R$ 0,00</span>
-</div>
-<div class="total-line">
-<span>Taxa de entrega</span>
-<span id="delivery">R$ 6,90</span>
-</div>
-<div class="total-line final">
-<span>Total</span>
-<span id="total">R$ 0,00</span>
-</div>
-</div>
-<button type="submit" class="submit" id="submit">
-<span id="submit-icon">⚡</span>
-<span id="submit-text">Pagar com PIX</span>
-</button>
-<p class="note">
-🔒 Pagamento simulado.
-Nenhum dado financeiro é enviado.
-</p>
-</div>
-</aside>
-</form>
-</div>
-<script src="assets/js/pagamento.js"> </script>
+
+<script src="assets/js/core.js"></script>
+<script src="assets/js/search.js"></script>
+<script src="assets/js/pagamento.js"></script>
 </body>
 </html>
-

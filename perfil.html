@@ -1,35 +1,340 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>SafeBite — Meu Perfil</title>
-<link rel="stylesheet" href="assets/css/perfil.css">
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Meu Perfil — SafeBite</title>
+  <link rel="stylesheet" href="assets/css/safebite.css"/>
+  <style>
+    /* ── Perfil específico ─────────────────────────────────── */
+    .perfil-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 1.5rem;
+      align-items: start;
+    }
+    @media (max-width: 860px) {
+      .perfil-layout { grid-template-columns: 1fr; }
+    }
+
+    /* Sidebar do perfil */
+    .perfil-sidebar {
+      position: sticky;
+      top: 5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .perfil-card-user {
+      background: linear-gradient(135deg, rgba(16,185,129,.14), rgba(22,28,24,.9));
+      border: 1px solid rgba(16,185,129,.22);
+      border-radius: var(--radius-xl);
+      padding: 1.75rem 1.5rem;
+      text-align: center;
+    }
+
+    .perfil-avatar {
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--green), var(--green-dark));
+      display: grid; place-items: center;
+      font-size: 2rem; font-weight: 700; color: var(--bg);
+      margin: 0 auto 1rem;
+      border: 3px solid rgba(16,185,129,.35);
+    }
+
+    .perfil-nome  { font-size: 1.15rem; font-weight: 600; margin: 0 0 .2rem; }
+    .perfil-login { color: var(--text-faint); font-size: .82rem; margin: 0 0 .75rem; }
+    .perfil-badge {
+      display: inline-block; font-size: .72rem;
+      padding: .15rem .6rem; border-radius: 999px;
+      border: 1px solid; margin-bottom: 1rem;
+    }
+    .perfil-badge.admin { color: #fcd34d; background: rgba(245,158,11,.1); border-color: rgba(245,158,11,.2); }
+    .perfil-badge.user  { color: var(--green-xlight); background: rgba(16,185,129,.1); border-color: rgba(16,185,129,.2); }
+
+    .perfil-side-nav { display: flex; flex-direction: column; gap: .15rem; }
+    .perfil-side-link {
+      display: flex; align-items: center; gap: .65rem;
+      padding: .6rem .9rem; border-radius: .65rem;
+      color: var(--text-nav); font-size: .9rem; cursor: pointer;
+      transition: all .15s; border: none; background: none;
+      text-align: left; width: 100%; font: inherit;
+    }
+    .perfil-side-link:hover  { background: rgba(255,255,255,.05); color: var(--text); }
+    .perfil-side-link.active { background: rgba(16,185,129,.12); color: var(--green-light); }
+    .perfil-side-link .icon  { font-style: normal; width: 20px; text-align: center; flex-shrink: 0; }
+
+    /* Área principal */
+    .perfil-main { display: flex; flex-direction: column; gap: 1.25rem; }
+
+    /* Painel */
+    .panel { display: none; }
+    .panel.active { display: block; }
+
+    /* Restrições — grid de chips selecionáveis */
+    .rest-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
+      gap: .65rem;
+      margin: 1rem 0;
+    }
+    .rest-chip {
+      display: flex; align-items: center; gap: .65rem;
+      padding: .75rem 1rem; border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.03);
+      color: var(--text-nav); font-size: .88rem;
+      cursor: pointer; transition: all .15s;
+      user-select: none;
+    }
+    .rest-chip:hover {
+      border-color: rgba(16,185,129,.3);
+      background: rgba(16,185,129,.05);
+      color: var(--text);
+    }
+    .rest-chip.selected {
+      border-color: var(--green);
+      background: rgba(16,185,129,.12);
+      color: var(--green-xlight);
+    }
+    .rest-chip .rest-chip-icon { font-size: 1.1rem; }
+    .rest-chip .rest-chip-check {
+      margin-left: auto; font-size: .85rem;
+      opacity: 0; transition: opacity .15s;
+    }
+    .rest-chip.selected .rest-chip-check { opacity: 1; }
+
+    /* Pratos filtrados */
+    .filtered-banner {
+      background: rgba(16,185,129,.07);
+      border: 1px solid rgba(16,185,129,.18);
+      border-radius: var(--radius);
+      padding: .75rem 1rem;
+      font-size: .88rem; color: var(--green-xlight);
+      display: flex; align-items: center; gap: .6rem;
+      margin-bottom: 1.25rem;
+    }
+
+    /* Restaurantes favoritos */
+    .fav-rest-card {
+      display: flex; gap: 1rem; align-items: center;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1rem 1.25rem;
+      transition: border-color .15s;
+    }
+    .fav-rest-card:hover { border-color: var(--border-hover); }
+    .fav-rest-thumb {
+      width: 56px; height: 56px; border-radius: var(--radius);
+      object-fit: cover; flex-shrink: 0;
+      background: rgba(16,185,129,.1);
+      display: grid; place-items: center; font-size: 1.5rem;
+    }
+    .fav-rest-info { flex: 1; min-width: 0; }
+    .fav-rest-name { font-weight: 600; color: var(--text); margin: 0 0 .15rem; font-size: .98rem; }
+    .fav-rest-sub  { color: var(--text-muted); font-size: .82rem; margin: 0; }
+
+    /* Campos do form de dados */
+    .form-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
+    @media (max-width: 560px) { .form-grid-2 { grid-template-columns: 1fr; } }
+
+    /* Estatísticas rápidas */
+    .quick-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: .75rem;
+      margin-bottom: 1.5rem;
+    }
+    @media (max-width: 560px) { .quick-stats { grid-template-columns: 1fr 1fr; } }
+    .qs { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1rem; text-align: center; }
+    .qs-val   { font-size: 1.5rem; font-weight: 700; color: var(--green-light); margin: 0 0 .15rem; }
+    .qs-label { font-size: .75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: .06em; }
+  </style>
 </head>
 <body>
-<nav class="nav"><div class="nav-inner">
- <a class="brand" href="home.html"><span class="brand-dot">S</span>
-SafeBite</a>
- <div class="nav-links">
- <a class="nav-link" href="home.html">Início</a>
- <a class="nav-link" href="restaurantes.html">Restaurantes</a>
- <a class="nav-link" href="cadastro-de-restaurante.html">Cadastrar</a>
- <a class="nav-link" href="pesquisa-alimentos.html">Alimentos</a>
- <a class="nav-link" href="cadastrocliente.html">Clientes</a>
- <a class="nav-link" href="cadastro-prato.html">Pratos</a>
- <a class="nav-link" href="registro-venda.html">Vendas</a>
- <a class="nav-link active" href="perfil.html">Perfil</a>
- </div>
-</div></nav>
-<div class="wrap">
- <div class="glow"></div>
- <div class="eyebrow">◉ Conta</div>
- <h1>Meu Perfil</h1>
- <p class="lead">Suas informações pessoais, endereço e preferências
-alimentares.</p>
- <div id="content"></div>
+
+<nav class="nav" role="navigation">
+  <div class="nav-inner">
+    <a class="brand" href="index.html">
+      <span class="brand-dot">S</span><span>SafeBite</span>
+    </a>
+    <div class="nav-search" role="search">
+      <i class="nav-search-icon" aria-hidden="true">🔎</i>
+      <input id="globalSearch" class="nav-search-input" type="search"
+        placeholder="Buscar restaurantes ou pratos…"
+        autocomplete="off" aria-label="Buscar" aria-controls="globalSearchResults" />
+      <div id="globalSearchResults" class="nav-search-results" role="listbox"></div>
+    </div>
+    <div class="nav-links" id="navLinks">
+      <a class="nav-link" href="index.html">Início</a>
+      <a class="nav-link" href="mapa.html">🗺 Mapa</a>
+      <a class="nav-link" href="favoritos.html" id="navFavoritos" style="display:none">❤ Favoritos</a>
+      <a class="nav-link active" href="perfil.html">Perfil</a>
+      <a class="nav-link" href="admin.html" id="navAdmin" style="display:none">⚙ Admin</a>
+      <a class="nav-link" href="login.html" id="navLogin">Entrar</a>
+      <a class="nav-link" href="#" id="navLogout" style="display:none"><span id="navUser"></span> · Sair</a>
+      <a class="nav-cart" href="carrinho.html" aria-label="Carrinho">
+        🛒 <span class="nav-cart-count" id="navCartCount" style="display:none">0</span>
+      </a>
+    </div>
+    <button class="nav-hamburger" id="hamburger" aria-label="Menu">☰</button>
+  </div>
+</nav>
+
+<div class="wrap" style="max-width:64rem">
+  <div class="glow" aria-hidden="true"></div>
+  <div class="eyebrow">◉ Conta</div>
+  <h1 style="margin-bottom:1.75rem">Meu Perfil</h1>
+
+  <div class="perfil-layout">
+
+    <!-- ── Sidebar ── -->
+    <aside class="perfil-sidebar">
+      <div class="perfil-card-user">
+        <div class="perfil-avatar" id="sideAvatar">?</div>
+        <p class="perfil-nome"  id="sideNome">…</p>
+        <p class="perfil-login" id="sideLogin">…</p>
+        <span class="perfil-badge" id="sideBadge">…</span>
+      </div>
+
+      <div class="card" style="padding:1rem">
+        <nav class="perfil-side-nav" aria-label="Seções do perfil">
+          <button class="perfil-side-link active" data-panel="visao">
+            <i class="icon">📊</i> Visão geral
+          </button>
+          <button class="perfil-side-link" data-panel="restricoes">
+            <i class="icon">🥗</i> Minhas restrições
+          </button>
+          <button class="perfil-side-link" data-panel="fav-rest">
+            <i class="icon">🏪</i> Restaurantes favoritos
+          </button>
+          <button class="perfil-side-link" data-panel="fav-pratos">
+            <i class="icon">❤</i> Pratos favoritos
+          </button>
+          <button class="perfil-side-link" data-panel="dados">
+            <i class="icon">✏️</i> Editar dados
+          </button>
+          <button class="perfil-side-link" data-panel="senha">
+            <i class="icon">🔒</i> Alterar senha
+          </button>
+        </nav>
+      </div>
+    </aside>
+
+    <!-- ── Área principal ── -->
+    <main class="perfil-main" id="perfilMain">
+
+      <!-- VISÃO GERAL -->
+      <section class="panel active" id="panel-visao">
+        <div class="card">
+          <h2 style="margin:0 0 1.25rem;font-size:1.15rem">📊 Visão geral</h2>
+          <div class="quick-stats" id="quickStats"></div>
+          <div id="visaoRestr"></div>
+        </div>
+      </section>
+
+      <!-- MINHAS RESTRIÇÕES -->
+      <section class="panel" id="panel-restricoes">
+        <div class="card">
+          <h2 style="margin:0 0 .4rem;font-size:1.15rem">🥗 Minhas restrições alimentares</h2>
+          <p class="muted" style="font-size:.88rem;margin:0 0 .25rem">
+            Selecione suas restrições para filtrar pratos compatíveis automaticamente na plataforma.
+          </p>
+          <div class="rest-grid" id="restricoesGrid"></div>
+          <div style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;margin-top:.5rem">
+            <button class="btn primary" id="btnSalvarRestr">Salvar restrições</button>
+            <button class="btn ghost"   id="btnLimparRestr">Limpar seleção</button>
+          </div>
+          <div id="msgRestr" class="msg" style="display:none;margin-top:.75rem"></div>
+        </div>
+
+        <!-- Pratos compatíveis -->
+        <div class="card" id="cardPratosCompat" style="margin-top:1.25rem">
+          <h3 style="margin:0 0 .5rem;font-size:1.05rem">✅ Pratos compatíveis com suas restrições</h3>
+          <p class="muted" style="font-size:.85rem;margin:0 0 1rem">
+            Estes pratos atendem a <strong>todas</strong> as suas restrições salvas.
+          </p>
+          <div id="pratosCompatGrid" class="cards" style="grid-template-columns:repeat(auto-fill,minmax(230px,1fr))"></div>
+        </div>
+      </section>
+
+      <!-- RESTAURANTES FAVORITOS -->
+      <section class="panel" id="panel-fav-rest">
+        <div class="card">
+          <h2 style="margin:0 0 .4rem;font-size:1.15rem">🏪 Restaurantes favoritos</h2>
+          <p class="muted" style="font-size:.88rem;margin:0 0 1.25rem">
+            Favorite restaurantes na página de cada estabelecimento para encontrá-los rapidamente aqui.
+          </p>
+          <div id="favRestGrid"></div>
+        </div>
+      </section>
+
+      <!-- PRATOS FAVORITOS -->
+      <section class="panel" id="panel-fav-pratos">
+        <div class="card">
+          <h2 style="margin:0 0 .4rem;font-size:1.15rem">❤ Pratos favoritos</h2>
+          <p class="muted" style="font-size:.88rem;margin:0 0 1.25rem">
+            Seus pratos marcados com ❤ em toda a plataforma.
+          </p>
+          <div id="favPratosGrid" class="cards" style="grid-template-columns:repeat(auto-fill,minmax(230px,1fr))"></div>
+        </div>
+      </section>
+
+      <!-- EDITAR DADOS -->
+      <section class="panel" id="panel-dados">
+        <div class="card">
+          <h2 style="margin:0 0 1.25rem;font-size:1.15rem">✏️ Editar dados pessoais</h2>
+          <form id="formDados" novalidate>
+            <div class="form-grid-2">
+              <div class="field">
+                <label>Nome completo <span class="req">*</span></label>
+                <input class="input" id="dNome" type="text" autocomplete="name" required />
+              </div>
+              <div class="field">
+                <label>E-mail <span class="req">*</span></label>
+                <input class="input" id="dEmail" type="email" autocomplete="email" required />
+              </div>
+            </div>
+            <div id="msgDados" class="msg" style="display:none"></div>
+            <button class="btn primary" type="submit">Salvar dados</button>
+          </form>
+        </div>
+      </section>
+
+      <!-- ALTERAR SENHA -->
+      <section class="panel" id="panel-senha">
+        <div class="card">
+          <h2 style="margin:0 0 1.25rem;font-size:1.15rem">🔒 Alterar senha</h2>
+          <form id="formSenha" novalidate style="max-width:380px">
+            <div class="field">
+              <label>Senha atual <span class="req">*</span></label>
+              <input class="input" id="sAtual" type="password" autocomplete="current-password" required />
+            </div>
+            <div class="field">
+              <label>Nova senha <span class="req">*</span></label>
+              <input class="input" id="sNova" type="password" autocomplete="new-password" required />
+            </div>
+            <div class="field">
+              <label>Confirmar nova senha <span class="req">*</span></label>
+              <input class="input" id="sConfirm" type="password" autocomplete="new-password" required />
+            </div>
+            <div id="msgSenha" class="msg" style="display:none"></div>
+            <button class="btn primary" type="submit">Alterar senha</button>
+          </form>
+        </div>
+      </section>
+
+    </main>
+  </div>
 </div>
-<div class="toast" id="toast">Preferência atualizada</div>
+
+<div class="toast" id="globalToast" role="status" aria-live="polite"></div>
+
+<script src="assets/js/core.js"></script>
+<script src="assets/js/search.js"></script>
 <script src="assets/js/perfil.js"></script>
 </body>
 </html>
